@@ -1,0 +1,13 @@
+name: teil_lints_plugin_loader
+description: This pubspec determines the version of the analyzer plugin to load.
+version: 0.0.1
+
+environment:
+  sdk: '>=2.14.0 <3.0.0'
+
+dependencies:
+  teil_lints: 0.0.1
+
+dependency_overrides:
+  teil_lints:
+    path: ../../

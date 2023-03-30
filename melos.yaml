@@ -1,0 +1,20 @@
+name: teil_tools
+
+packages:
+  - packages/**
+
+scripts:
+  flutter_analyze:
+    run: |
+      flutter pub run melos exec --flutter --fail-fast -- "flutter analyze"
+    description: |
+      Run `dart analyze` in all packages.
+       - Note: you can also rely on your IDEs Dart Analysis / Issues window.
+
+  flutter_test:
+    run: flutter pub run melos exec --flutter --dir-exists="test" --fail-fast -- "flutter test"
+    description: Run Flutter tests for a specific package in this project.
+
+  flutter_test:coverage:
+    run: flutter pub run melos exec --flutter --dir-exists="test" --fail-fast -- "flutter test --coverage"
+    description: Run Flutter tests for a specific package in this project.
