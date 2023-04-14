@@ -1,0 +1,48 @@
+name: 'Request a change'
+description: 'Request a change'
+title: '[Change request] (fill in)'
+labels:
+  - 'type: enhancement'
+body:
+  - type: input
+    attributes:
+      label: Package name
+      description: |
+        What package are you currently using?
+      placeholder: |
+        e.g. teil_lints
+    validations:
+      required: true
+  - type: input
+    attributes:
+      label: Package version
+      description: |
+        What version are you currently using?
+      placeholder: |
+        e.g. v0.0.1
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What problem do you want to solve?
+      description: |
+        Please explain your use case in as much detail as possible.
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: What do you think is the correct solution?
+      description: |
+        Please explain how you'd like to change DCM to address the problem.
+    validations:
+      required: true
+  - type: checkboxes
+    attributes:
+      label: Participation
+      options:
+        - label: I am willing to submit a pull request for this change.
+          required: false
+  - type: textarea
+    attributes:
+      label: Additional comments
+      description: Is there anything else that's important for the team to know?
