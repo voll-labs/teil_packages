@@ -6,7 +6,7 @@ packages:
 scripts:
   flutter_analyze:
     run: |
-      flutter pub run melos exec --flutter --fail-fast -- "flutter analyze"
+      flutter pub run melos exec --flutter --fail-fast -- "flutter analyze --"
     description: |
       Run `dart analyze` in all packages.
        - Note: you can also rely on your IDEs Dart Analysis / Issues window.

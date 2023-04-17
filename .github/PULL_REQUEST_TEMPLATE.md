@@ -2,40 +2,27 @@
     Thank you for contributing!
 -->
 
-If your PR fixes an issue, you can add `#issue_number` into this
-PR description. Please don't reference the issue with `closes` (or other) syntax
-since we close the issues only after the code is released.
+## Related Issues
 
-If you added a new lint rule, here's a checklist for things that will be
-checked during review or continuous integration.
+_Replace this paragraph with a list of issues related to this PR from the [issues]. Indicate, which of these issues are resolved or fixed by this PR._
 
-- \[ ] Red the [contributing guidelines](https://github.com/dart-code-checker/dart-code-metrics/blob/master/CONTRIBUTING.md).
-- \[ ] Followed lint naming conventions
-- \[ ] Tests pass locally
-- \[ ] Updated the changelog
-- \[ ] Added the docs to this PR
+## Checklist
 
-Note that you can skip the above if you are just opening a WIP PR in
-order to get feedback.
-
-Since the website was moved out from this repo, please add the rule documentation in the description.
-Refer to [this documentation](https://dcm.dev/docs/individuals/rules/common/format-comment/) as an example.
-
-Delete this line and everything above before opening your PR.
+- [ ] I read the [Contributor Guide] and followed the process outlined there for submitting PRs.
+- [ ] I followed the [Conventional Commits] naming convention.
+- [ ] I listed at least one issue that this PR fixes in the description above.
+- [ ] I updated/added relevant documentation (doc comments with `///`)
+- [ ] All existing and new tests are passing.
+- [ ] The title of the PR starts with the name of the package surrounded by square brackets, e.g. `[teil_lints]`
 
 ---
 
-# Please write a short comment explaining your change (or "none" for internal only changes)
+## Description
 
-<!-- Uncomment the section below, if you the PR adds or changes a rule>
-<!--
+_Replace this paragraph with a description of what this PR is doing. If you're modifying existing behavior, describe the existing behavior, how this PR is changing it, and what motivated the change._
 
-## Rule documentation
+<!-- Links -->
 
-### Config example (if applicable)
-
-### Good example
-
-### Bad example
-
--->
+[conventional commits]: https://www.conventionalcommits.org/en/v1.0.0/
+[issues]: https://github.com/voll-labs/teil_tools/issues
+[contributor guide]: ../CONTRIBUTING.md
