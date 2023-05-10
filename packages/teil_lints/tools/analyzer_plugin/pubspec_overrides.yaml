@@ -1,4 +1,0 @@
-# melos_managed_dependency_overrides: teil_lints
-dependency_overrides:
-  teil_lints:
-    path: ../../
