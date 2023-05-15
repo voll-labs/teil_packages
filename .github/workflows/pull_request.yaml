@@ -22,8 +22,8 @@ jobs:
         with:
           fatal-infos: true
           fatal-warnings: true
-      - name: dcm
-        uses: dart-code-checker/dart-code-metrics-action@v2
+      - name: Dart code metrics
+        uses: dart-code-checker/dart-code-metrics-action@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
