@@ -26,6 +26,7 @@ jobs:
         uses: dart-code-checker/dart-code-metrics-action@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          folders: 'packages/teil_lints/lib'
 
   test:
     runs-on: ubuntu-latest
