@@ -23,7 +23,7 @@ jobs:
           fatal-infos: true
           fatal-warnings: true
       - name: Dart code metrics
-        uses: dart-code-checker/dart-code-metrics-action@v3
+        uses: dart-code-checker/dart-code-metrics-action@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           folders: 'packages/teil_lints/lib'
