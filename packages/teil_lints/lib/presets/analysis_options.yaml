@@ -16,3 +16,7 @@ dart_code_metrics:
     maximum-nesting: 5
     number-of-parameters: 5
     source-lines-of-code: 50
+
+linter:
+  rules:
+    one_member_abstracts: false
