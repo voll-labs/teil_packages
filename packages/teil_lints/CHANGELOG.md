@@ -1,3 +1,7 @@
+## 0.0.2
+
+ - **FEAT**: Add bloc / provider lint. ([7fe8f3f1](https://github.com/voll-labs/teil_tools/commit/7fe8f3f17d6ade2c3c3f9edc46fad75fc0c31f00))
+
 ## 0.0.1
 
  - **FIX**: version. ([0cafad8a](https://github.com/voll-labs/teil_tools/commit/0cafad8ada3402e252cb59158d71cbe27dbb5859))

@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`teil_lints` - `v0.0.2`](#teil_lints---v002)
+
+---
+
+#### `teil_lints` - `v0.0.2`
+
+ - **FEAT**: Add bloc / provider lint. ([7fe8f3f1](https://github.com/voll-labs/teil_tools/commit/7fe8f3f17d6ade2c3c3f9edc46fad75fc0c31f00))
+
+
+## 2023-05-29
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`teil_lints` - `v0.0.1`](#teil_lints---v001)
 
 ---
