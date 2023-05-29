@@ -1,7 +1,8 @@
 name: teil_lints
 description: A new Flutter package project.
 version: 0.0.1
-homepage:
+publish_to: https://pub.dev/
+repository: https://github.com/voll-labs/teil_tools
 
 environment:
   sdk: '>=3.0.2 <4.0.0'
