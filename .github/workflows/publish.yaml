@@ -16,4 +16,4 @@ jobs:
           cache: true
       - uses: bluefireteam/melos-action@main
       - name: Publish release
-      - run: melos publish
+        run: melos publish
