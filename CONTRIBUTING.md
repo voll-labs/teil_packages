@@ -72,3 +72,12 @@ PR titles should follow the format below:
 1. **fix:** a commit of the _type_ `fix` patches a bug in the codebase.
 2. **feat:** a commit of the _type_ `feat` introduces a new feature to the codebase.
 3. _types_ other than `fix:` and `feat:` are allowed, recommends `build:`, `chore:`, `ci:`, `docs:`, `style:`, `refactor:`, `perf:`, `test:`, and others.
+
+## Publishing a new version
+
+Only maintainers can publish a new version of the package. To do so, follow these steps:
+
+1. Make sure you have the latest changes from the `main` branch.
+2. Run `melos version` and follow the instructions.
+3. Run `melos publish --no-dry-run` to publish all packages.
+4. Push the changes to the `main` branch and create a new release on GitHub.
