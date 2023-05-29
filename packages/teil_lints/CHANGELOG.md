@@ -1,3 +1,7 @@
+## 0.0.3
+
+ - **FEAT**: Remove lint one_member_abstracts. ([521614cd](https://github.com/voll-labs/teil_tools/commit/521614cd8acd87918687c688737976ff951a7134))
+
 ## 0.0.2
 
  - **FEAT**: Add bloc / provider lint. ([7fe8f3f1](https://github.com/voll-labs/teil_tools/commit/7fe8f3f17d6ade2c3c3f9edc46fad75fc0c31f00))

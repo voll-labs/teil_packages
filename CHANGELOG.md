@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`teil_lints` - `v0.0.3`](#teil_lints---v003)
+
+---
+
+#### `teil_lints` - `v0.0.3`
+
+ - **FEAT**: Remove lint one_member_abstracts. ([521614cd](https://github.com/voll-labs/teil_tools/commit/521614cd8acd87918687c688737976ff951a7134))
+
+
+## 2023-05-29
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`teil_lints` - `v0.0.2`](#teil_lints---v002)
 
 ---
