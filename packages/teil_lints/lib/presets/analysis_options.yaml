@@ -8,6 +8,8 @@ analyzer:
 dart_code_metrics:
   extends:
     - package:dart_code_metrics_presets/equatable.yaml
+    - package:dart_code_metrics_presets/bloc.yaml
+    - package:dart_code_metrics_presets/provider.yaml
   metrics:
     cyclomatic-complexity: 20
     maintainability-index: 50
