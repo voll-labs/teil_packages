@@ -1,3 +1,5 @@
+## 0.0.2+1
+
 ## 0.0.2
 
  - **FIX**: Removes custom dart analyzer due:. ([562a820c](https://github.com/voll-labs/teil_tools/commit/562a820c469570d98e4ecea848c9c52c8184089f))

@@ -15,6 +15,25 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`teil_lints` - `v0.0.2+1`](#teil_lints---v0021)
+
+---
+
+#### `teil_lints` - `v0.0.2+1`
+
+
+## 2023-05-29
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`teil_lints` - `v0.0.2`](#teil_lints---v002)
 
 ---
