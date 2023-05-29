@@ -1,5 +1,6 @@
 name: teil_tools
 publish_to: none
+repository: https://github.com/voll-labs/teil_tools
 
 environment:
   sdk: '>=3.0.0 <4.0.0'
