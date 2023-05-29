@@ -375,7 +375,7 @@ packages:
       path: "packages/teil_lints"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.2"
   term_glyph:
     dependency: transitive
     description:
@@ -457,4 +457,4 @@ packages:
     source: hosted
     version: "2.1.1"
 sdks:
-  dart: ">=3.0.2 <4.0.0"
+  dart: ">=3.0.0 <4.0.0"
