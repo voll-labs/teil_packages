@@ -13,7 +13,7 @@ _Replace this paragraph with a list of issues related to this PR from the [issue
 - [ ] I listed at least one issue that this PR fixes in the description above.
 - [ ] I updated/added relevant documentation (doc comments with `///`)
 - [ ] All existing and new tests are passing.
-- [ ] The title of the PR starts with the name of the package surrounded by square brackets, e.g. `[teil_lints]`
+- [ ] The title of the PR should be in the form `<type>(<scope>): <description>`. Example: `feat(teil_tools): Add new feature`
 
 ---
 
