@@ -20,3 +20,4 @@ dart_code_metrics:
 linter:
   rules:
     one_member_abstracts: false
+    sort_constructors_first: false
