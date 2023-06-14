@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-06-14
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`teil_lints` - `v0.0.4`](#teil_lints---v004)
+
+---
+
+#### `teil_lints` - `v0.0.4`
+
+ - **FEAT**: disabling the sort_constructors_first rule. ([2ce043a9](https://github.com/voll-labs/teil_tools/commit/2ce043a9f662809f21491000e2a9baf56fe0d3f5))
+
+
 ## 2023-05-29
 
 ### Changes

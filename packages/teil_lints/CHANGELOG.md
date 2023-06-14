@@ -1,3 +1,7 @@
+## 0.0.4
+
+ - **FEAT**: disabling the sort_constructors_first rule. ([2ce043a9](https://github.com/voll-labs/teil_tools/commit/2ce043a9f662809f21491000e2a9baf56fe0d3f5))
+
 ## 0.0.3
 
  - **FEAT**: Remove lint one_member_abstracts. ([521614cd](https://github.com/voll-labs/teil_tools/commit/521614cd8acd87918687c688737976ff951a7134))
