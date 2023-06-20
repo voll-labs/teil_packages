@@ -9,4 +9,4 @@ dev_dependencies:
   melos: ^3.0.0
   teil_lints:
     path: packages/teil_lints
-    version: ^0.0.3
+    version: ^0.0.4

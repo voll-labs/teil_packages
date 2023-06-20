@@ -375,7 +375,7 @@ packages:
       path: "packages/teil_lints"
       relative: true
     source: path
-    version: "0.0.3"
+    version: "0.0.4"
   term_glyph:
     dependency: transitive
     description:
