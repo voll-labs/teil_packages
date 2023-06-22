@@ -1,22 +1,6 @@
 # very_good_analysis lints https://pub.dev/packages/very_good_analysis
 include: package:very_good_analysis/analysis_options.yaml
 
-analyzer:
-  plugins:
-    - dart_code_metrics
-
-dart_code_metrics:
-  extends:
-    - package:dart_code_metrics_presets/equatable.yaml
-    - package:dart_code_metrics_presets/bloc.yaml
-    - package:dart_code_metrics_presets/provider.yaml
-  metrics:
-    cyclomatic-complexity: 20
-    maintainability-index: 50
-    maximum-nesting: 5
-    number-of-parameters: 5
-    source-lines-of-code: 50
-
 linter:
   rules:
     one_member_abstracts: false
