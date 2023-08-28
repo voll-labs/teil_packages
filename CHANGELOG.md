@@ -15,6 +15,27 @@ Packages with breaking changes:
 
 Packages with other changes:
 
+ - [`teil_lints` - `v0.0.5+1`](#teil_lints---v0051)
+
+---
+
+#### `teil_lints` - `v0.0.5+1`
+
+ - **FIX**: Remove avoid_setters_without_getters: false. ([1cf930bd](https://github.com/voll-labs/teil_tools/commit/1cf930bd5d6e55a5914369e6c15b8ed939df2513))
+
+
+## 2023-08-28
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
  - [`teil_lints` - `v0.0.5`](#teil_lints---v005)
 
 ---
