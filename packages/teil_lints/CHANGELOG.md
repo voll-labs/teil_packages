@@ -1,3 +1,8 @@
+## 0.0.5
+
+ - **FIX**: Removed DCM due:. ([3be12835](https://github.com/voll-labs/teil_tools/commit/3be12835af1a8320d542ebc95e9201ed6ec3ce00))
+ - **FEAT**: Update very_good_analysis. ([337a7e6a](https://github.com/voll-labs/teil_tools/commit/337a7e6a8abc6fbd22b711d221d48447eb1e049f))
+
 ## 0.0.4
 
  - **FEAT**: disabling the sort_constructors_first rule. ([2ce043a9](https://github.com/voll-labs/teil_tools/commit/2ce043a9f662809f21491000e2a9baf56fe0d3f5))

@@ -3,6 +3,28 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2023-08-28
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`teil_lints` - `v0.0.5`](#teil_lints---v005)
+
+---
+
+#### `teil_lints` - `v0.0.5`
+
+ - **FIX**: Removed DCM due:. ([3be12835](https://github.com/voll-labs/teil_tools/commit/3be12835af1a8320d542ebc95e9201ed6ec3ce00))
+ - **FEAT**: Update very_good_analysis. ([337a7e6a](https://github.com/voll-labs/teil_tools/commit/337a7e6a8abc6fbd22b711d221d48447eb1e049f))
+
+
 ## 2023-06-14
 
 ### Changes
