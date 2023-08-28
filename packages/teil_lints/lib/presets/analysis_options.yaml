@@ -5,3 +5,4 @@ linter:
   rules:
     one_member_abstracts: false
     sort_constructors_first: false
+    avoid_setters_without_getters: false
