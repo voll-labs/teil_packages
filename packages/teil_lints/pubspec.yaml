@@ -7,4 +7,4 @@ environment:
   sdk: '>=3.0.0 <4.0.0'
 
 dependencies:
-  very_good_analysis: ^4.0.0+1
+  very_good_analysis: ^5.0.0+1
