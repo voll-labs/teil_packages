@@ -1,3 +1,7 @@
+## 0.0.5+2
+
+ - **FIX**: Update very_good_analysis. ([933bbf99](https://github.com/voll-labs/teil_tools/commit/933bbf99ba662abfd55f8d1b2c53605ec5aea0c7))
+
 ## 0.0.5+1
 
  - **FIX**: Remove avoid_setters_without_getters: false. ([1cf930bd](https://github.com/voll-labs/teil_tools/commit/1cf930bd5d6e55a5914369e6c15b8ed939df2513))
