@@ -1,6 +1,6 @@
-name: teil_tools
+name: teil_packages
 
-repository: https://github.com/voll-labs/teil_tools
+repository: https://github.com/voll-labs/teil_packages
 
 packages:
   - packages/**

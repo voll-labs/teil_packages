@@ -1,0 +1,20 @@
+name: example
+description: "A new Flutter project."
+publish_to: 'none'
+
+environment:
+  sdk: '>=3.2.6 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  teil_lints:
+    hosted: https://volltech.jfrog.io/artifactory/api/pub/pub
+    version: ^0.0.5+1
+
+flutter:
+  uses-material-design: true
