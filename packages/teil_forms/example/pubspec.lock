@@ -131,10 +131,9 @@ packages:
   teil_lints:
     dependency: "direct dev"
     description:
-      name: teil_lints
-      sha256: "9f839754cd6548aafb6c31342f6933120f36458280a01043876b30fa45b38b94"
-      url: "https://volltech.jfrog.io/artifactory/api/pub/pub/"
-    source: hosted
+      path: "../../teil_lints"
+      relative: true
+    source: path
     version: "0.0.5+2"
   term_glyph:
     dependency: transitive
