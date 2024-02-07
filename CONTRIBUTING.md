@@ -1,4 +1,4 @@
-# Contributing to Teil tools
+# Contributing to Teil Packages
 
 ## Things you will need
 
@@ -24,7 +24,7 @@
 
 ## Environment Setup
 
-Teil tools uses [Melos](https://github.com/invertase/melos) to manage the project and dependencies.
+Teil Packages uses [Melos](https://github.com/invertase/melos) to manage the project and dependencies.
 
 To install Melos, run the following command from your SSH client:
 
