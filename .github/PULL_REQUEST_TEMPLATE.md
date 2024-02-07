@@ -13,7 +13,7 @@ _Replace this paragraph with a list of issues related to this PR from the [issue
 - [ ] I listed at least one issue that this PR fixes in the description above.
 - [ ] I updated/added relevant documentation (doc comments with `///`)
 - [ ] All existing and new tests are passing.
-- [ ] The title of the PR should be in the form `<type>(<scope>): <description>`. Example: `feat(teil_tools): Add new feature`
+- [ ] The title of the PR should be in the form `<type>(<scope>): <description>`. Example: `feat(teil_packages): Add new feature`
 
 ---
 
@@ -24,5 +24,5 @@ _Replace this paragraph with a description of what this PR is doing. If you're m
 <!-- Links -->
 
 [conventional commits]: https://www.conventionalcommits.org/en/v1.0.0/
-[issues]: https://github.com/voll-labs/teil_tools/issues
+[issues]: https://github.com/voll-labs/teil_packages/issues
 [contributor guide]: ../CONTRIBUTING.md
