@@ -3,6 +3,33 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## 2024-03-27
+
+### Changes
+
+---
+
+Packages with breaking changes:
+
+ - There are no breaking changes in this release.
+
+Packages with other changes:
+
+ - [`teil_lints` - `v0.0.5+3`](#teil_lints---v0053)
+ - [`teil_forms` - `v0.0.2`](#teil_forms---v002)
+
+---
+
+#### `teil_lints` - `v0.0.5+3`
+
+ - fix: Disable lines_longer_than_80_chars lint
+
+#### `teil_forms` - `v0.0.2`
+
+ - **FIX**: Lock file. ([00e5f65d](https://github.com/voll-labs/teil_packages/commit/00e5f65d4a54bb0e9ac082a6dcae5e384d85bcb2))
+ - **FEAT**: Add new project teil_forms. ([f93d58e7](https://github.com/voll-labs/teil_packages/commit/f93d58e72db72dde1e592ec460931274cec54d35))
+
+
 ## 2023-09-19
 
 ### Changes

@@ -1,3 +1,7 @@
+## 0.0.5+3
+
+ - fix: Disable lines_longer_than_80_chars lint
+
 ## 0.0.5+2
 
  - **FIX**: Update very_good_analysis. ([933bbf99](https://github.com/voll-labs/teil_packages/commit/933bbf99ba662abfd55f8d1b2c53605ec5aea0c7))

@@ -1,6 +1,6 @@
 name: teil_forms
 description: "A new Flutter package project."
-version: 0.0.1
+version: 0.0.2
 homepage:
 
 environment:
@@ -16,4 +16,4 @@ dev_dependencies:
     sdk: flutter
   teil_lints:
     hosted: https://volltech.jfrog.io/artifactory/api/pub/pub
-    version: ^0.0.5+1
+    version: ^0.0.5+3
