@@ -1,40 +1,20 @@
-name: 'Pull request checks'
-
+name: Pull request validation
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
     types: [opened, reopened, synchronize]
 
 jobs:
-  analyze:
-    runs-on: ubuntu-latest
+  publish-packages:
+    name: Verify packages
+    runs-on: [ ubuntu-latest ]
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: subosito/flutter-action@v2
+      - uses: bluefireteam/melos-action@v3
         with:
-          channel: stable
-          cache: true
-      - uses: bluefireteam/melos-action@main
-      - name: Analyze
-        uses: invertase/github-action-dart-analyzer@v1
-        with:
-          fatal-infos: true
-          fatal-warnings: true
-      - name: Dart code metrics
-        uses: dart-code-checker/dart-code-metrics-action@v4
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          folders: 'packages/teil_lints/lib'
-
-  test:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-      - uses: subosito/flutter-action@v2
-        with:
-          channel: stable
-          cache: true
-      - uses: bluefireteam/melos-action@main
-      - uses: bluefireteam/spec-action@main
+          run-versioning: true
+          publish-dry-run: true

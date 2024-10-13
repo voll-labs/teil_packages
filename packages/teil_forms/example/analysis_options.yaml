@@ -1,0 +1,9 @@
+include: package:teil_lints/presets/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - '**/*.g.dart'
+
+linter:
+  rules:
+    public_member_api_docs: false
