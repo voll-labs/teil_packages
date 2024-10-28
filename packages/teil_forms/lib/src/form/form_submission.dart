@@ -1,6 +1,7 @@
 part of 'form.dart';
 
-mixin FormSent<F extends FormFieldValidator> on FormValidator<F> {
+/// Mixin that provides submission for a [FormValidator].
+mixin FormSubmission<F extends FormFieldValidator> on FormValidator<F> {
   bool _isSubmitting = false;
 
   /// Whether the [FormContext] is submitting.

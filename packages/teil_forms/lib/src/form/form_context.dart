@@ -1,6 +1,8 @@
 part of 'form.dart';
 
+/// Base class for form controllers.
 abstract class FormContext<F extends BaseFormField> extends TransitionNotifier with Diagnosticable {
+  /// Creates a [FormContext].
   FormContext();
 
   final Map<FieldKey, F> _fields = {};

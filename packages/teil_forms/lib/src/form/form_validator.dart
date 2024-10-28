@@ -1,7 +1,9 @@
 part of 'form.dart';
 
+/// The errors of a form.
 typedef FormErrors = Map<FieldKey, String>;
 
+/// Mixin that provides validation for a [FormContext].
 mixin FormValidator<F extends FormFieldValidator> on FormContext<F> {
   bool _isValidating = false;
 
@@ -85,6 +87,7 @@ mixin FormValidator<F extends FormFieldValidator> on FormContext<F> {
   }
 }
 
+/// Mixin that provides validation for a form field.
 mixin FormFieldValidator<T> on FormFieldFocusable<T> {
   bool _isValidating = false;
 

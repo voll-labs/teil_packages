@@ -3,10 +3,14 @@ part of 'form.dart';
 /// Field key
 typedef FieldKey = String;
 
+/// Base class for form fields.
 abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnosticable {
   @protected
+
+  /// The initial value of the field.
   final T initialValue;
 
+  /// Create a form field.
   BaseFormField(super.value) : initialValue = value;
 
   /// Key to identify the field.

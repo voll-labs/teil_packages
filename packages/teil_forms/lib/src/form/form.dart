@@ -11,13 +11,16 @@ part 'form_dirty.dart';
 part 'form_field.dart';
 part 'form_focusable.dart';
 part 'form_resetter.dart';
-part 'form_sent.dart';
+part 'form_submission.dart';
 part 'form_validator.dart';
 
+/// A form controller.
 abstract class TeilFormController<F extends TeilFormState> extends FormContext<F>
-    with FormValidator<F>, FormResetter<F>, FormSent<F>, FormDirty<F> {}
+    with FormValidator<F>, FormResetter<F>, FormSubmission<F>, FormDirty<F> {}
 
+/// A form field.
 class TeilFormState<T> extends BaseFormField<T>
     with FormFieldFocusable<T>, FormFieldValidator<T>, FormFieldResetter<T>, FormFieldDirty<T> {
+  /// Create a form field.
   TeilFormState(super.value);
 }

@@ -1,12 +1,15 @@
 part of 'form.dart';
 
+/// Mixin that provides a method to reset a form field.
 mixin FormResetter<F extends FormFieldResetter> on FormContext<F> {
+  /// Resets the field with the given [key].
   void resetField(FieldKey key) {
     final field = fields[key];
     if (field == null) return;
     field.reset();
   }
 
+  /// Resets all fields in the form.
   void reset() {
     startTransition(() {
       for (final key in fields.keys) {
@@ -16,7 +19,9 @@ mixin FormResetter<F extends FormFieldResetter> on FormContext<F> {
   }
 }
 
+/// Mixin that provides a method to reset a form field.
 mixin FormFieldResetter<T> on BaseFormField<T> {
+  /// Resets the field to its initial value.
   void reset() {
     startTransition(() {
       value = initialValue;

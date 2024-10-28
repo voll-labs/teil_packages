@@ -2,12 +2,16 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 
+/// Callback for a transition.
+///
+/// See also: [TransitionNotifier], [ValueTransitionNotifier]
 typedef TransitionCallback<T> = FutureOr<T> Function();
 
 /// [ChangeNotifier] that allows transitions to be started.
 ///
 /// See also: [Transition]
 class TransitionNotifier extends ChangeNotifier with Transition {
+  /// Creates a [TransitionNotifier].
   TransitionNotifier();
 }
 
@@ -15,6 +19,7 @@ class TransitionNotifier extends ChangeNotifier with Transition {
 ///
 /// See also: [Transition]
 class ValueTransitionNotifier<T> extends ValueNotifier<T> with Transition {
+  /// Creates a [ValueTransitionNotifier].
   ValueTransitionNotifier(super.value);
 }
 
