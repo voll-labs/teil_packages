@@ -1,41 +1,44 @@
 import 'package:example/simple_case/simple_case_fields.dart';
 import 'package:example/simple_case/simple_case_mocks.dart';
 import 'package:example/widgets/widgets.dart';
+import 'package:faker/faker.dart' show faker;
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 
 void main(List<String> args) {
-  runApp(const MaterialApp(home: SimpleCaseExample()));
+  runApp(const MaterialApp(home: SimpleAsyncCaseExample()));
 }
 
-class SimpleCaseExample extends StatefulWidget {
-  const SimpleCaseExample({super.key});
+class SimpleAsyncCaseExample extends StatefulWidget {
+  const SimpleAsyncCaseExample({super.key});
 
   @override
-  State<SimpleCaseExample> createState() => _SimpleCaseExampleState();
+  State<SimpleAsyncCaseExample> createState() => _SimpleAsyncCaseExampleState();
 }
 
-class _SimpleCaseExampleState extends State<SimpleCaseExample> {
-  late SimpleFormController _controller;
+class _SimpleAsyncCaseExampleState extends State<SimpleAsyncCaseExample> {
+  final _controllerKey = FormBuilderKey<SimpleFormController>();
 
-  @override
-  void initState() {
-    _controller = SimpleFormController(
-      name: NameField(''),
-      email: EmailField(null),
-      company: CompanyField(null),
-      companyPosition: CompanyPositionField(null),
-      radioExample: RadioExampleField(),
-      activeProfile: ActiveProfileField(),
-      agreeTerms: AgreeTermsField(),
-    );
-    super.initState();
+  Future<SimpleFormController> _fetchController() async {
+    return Future.delayed(const Duration(seconds: 3), () {
+      return SimpleFormController(
+        name: NameField(faker.person.name()),
+        email: EmailField(faker.internet.email()),
+        company: CompanyField(null),
+        companyPosition: CompanyPositionField(null),
+        radioExample: RadioExampleField(RadioExampleValue.two),
+        activeProfile: ActiveProfileField(value: true),
+        agreeTerms: AgreeTermsField(value: true),
+      );
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    return FormBuilder(
-      controller: _controller,
+    return FormBuilder.async(
+      key: _controllerKey,
+      controller: _fetchController,
+      loadingBuilder: (context) => const Scaffold(body: Center(child: CircularProgressIndicator())),
       builder: (context, controller) {
         return Scaffold(
           body: SafeArea(

@@ -6,15 +6,22 @@ on:
     types: [opened, reopened, synchronize]
 
 jobs:
-  publish-packages:
-    name: Verify packages
-    runs-on: [ ubuntu-latest ]
+  analyze:
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
       - uses: subosito/flutter-action@v2
       - uses: bluefireteam/melos-action@v3
+      - name: Run tests
+        run: melos analyze
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
         with:
-          run-versioning: true
-          publish-dry-run: true
+          cache: true
+      - uses: bluefireteam/melos-action@v3
+      - name: Run tests
+        run: melos test

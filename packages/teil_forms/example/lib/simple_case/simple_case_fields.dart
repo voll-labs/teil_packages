@@ -108,5 +108,13 @@ final class SimpleFormController extends TeilFormController<SimpleFieldState> {
   @override
   Future<void> handleSubmit(BuildContext context) async {
     log('Submit: [${fields.values}]');
+
+    final scaffolMessenger = ScaffoldMessenger.of(context);
+    if (!isDirty) {
+      scaffolMessenger.showSnackBar(const SnackBar(content: Text('Form did not change')));
+      return;
+    }
+
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Form submitted')));
   }
 }
