@@ -1,7 +1,7 @@
 part of 'form.dart';
 
 /// Mixin that provides a method to reset a form field.
-mixin FormResetter<F extends FormFieldResetter> on FormContext<F> {
+mixin FormResetter<F extends FormFieldResetter> on FormController<F> {
   /// Resets the field with the given [key].
   void resetField(FieldKey key) {
     final field = fields[key];

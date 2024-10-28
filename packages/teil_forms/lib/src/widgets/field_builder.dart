@@ -37,7 +37,7 @@ class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
   late F _formField;
 
   bool _registered = false;
-  late FormContext _formController;
+  late FormController _formController;
 
   @override
   void initState() {

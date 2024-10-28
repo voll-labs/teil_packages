@@ -1,16 +1,16 @@
 part of 'form.dart';
 
-/// The dirty fields of a [FormContext].
+/// The dirty fields of a [FormController].
 typedef DirtyFields = Set<FieldKey>;
 
-/// Mixin that provides dirty field tracking for a [FormContext].
-mixin FormDirty<F extends FormFieldDirty> on FormContext<F> {
+/// Mixin that provides dirty field tracking for a [FormController].
+mixin FormDirty<F extends FormFieldDirty> on FormController<F> {
   final DirtyFields _dirtyFields = {};
 
-  /// The dirty fields of the [FormContext].
+  /// The dirty fields of the [FormController].
   DirtyFields get dirtyFields => UnmodifiableSetView(_dirtyFields);
 
-  /// Whether the [FormContext] is dirty.
+  /// Whether the [FormController] is dirty.
   bool get isDirty => _dirtyFields.isNotEmpty;
 
   void _setDirtyField(FieldKey key, bool isDirty) {

@@ -5,7 +5,7 @@ import 'package:teil_forms/src/form/form.dart';
 typedef FormWidgetBuilder<C> = Widget Function(BuildContext context, C controller);
 
 /// A form builder.
-class FormBuilder<C extends FormContext> extends StatefulWidget {
+class FormBuilder<C extends FormController> extends StatefulWidget {
   /// Form controller.
   final C controller;
 
@@ -15,15 +15,15 @@ class FormBuilder<C extends FormContext> extends StatefulWidget {
   /// Create a form builder.
   const FormBuilder({required this.builder, required this.controller, super.key});
 
-  /// Try get the [FormContext] of the nearest [FormBuilder] ancestor.
-  static C? maybeOf<C extends FormContext>(BuildContext context) {
+  /// Try get the [FormController] of the nearest [FormBuilder] ancestor.
+  static C? maybeOf<C extends FormController>(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<_FormScope>();
     assert(scope?.notifier != null, 'No FormContext(${C.runtimeType}) found in context.');
     return scope!.notifier is C ? scope.notifier! as C : null;
   }
 
-  /// Get the [FormContext] of the nearest [FormBuilder] ancestor.
-  static C of<C extends FormContext>(BuildContext context) {
+  /// Get the [FormController] of the nearest [FormBuilder] ancestor.
+  static C of<C extends FormController>(BuildContext context) {
     final controller = FormBuilder.maybeOf<C>(context);
     return controller!;
   }
@@ -32,7 +32,7 @@ class FormBuilder<C extends FormContext> extends StatefulWidget {
   State<FormBuilder<C>> createState() => _FormBuilderState<C>();
 }
 
-class _FormBuilderState<C extends FormContext> extends State<FormBuilder<C>> {
+class _FormBuilderState<C extends FormController> extends State<FormBuilder<C>> {
   late C _controller;
 
   @override
@@ -53,6 +53,6 @@ class _FormBuilderState<C extends FormContext> extends State<FormBuilder<C>> {
   }
 }
 
-class _FormScope extends InheritedNotifier<FormContext> {
+class _FormScope extends InheritedNotifier<FormController> {
   const _FormScope({required super.notifier, required super.child});
 }

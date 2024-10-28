@@ -3,16 +3,16 @@ part of 'form.dart';
 /// The errors of a form.
 typedef FormErrors = Map<FieldKey, String>;
 
-/// Mixin that provides validation for a [FormContext].
-mixin FormValidator<F extends FormFieldValidator> on FormContext<F> {
+/// Mixin that provides validation for a [FormController].
+mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
   bool _isValidating = false;
 
-  /// Whether the [FormContext] is validating.
+  /// Whether the [FormController] is validating.
   bool get isValidating => _isValidating;
 
   final FormErrors _errors = {};
 
-  /// The errors of the [FormContext].
+  /// The errors of the [FormController].
   FormErrors get errors => UnmodifiableMapView(_errors);
 
   Future<F?> _validateField(FieldKey key) async {
@@ -39,7 +39,7 @@ mixin FormValidator<F extends FormFieldValidator> on FormContext<F> {
     });
   }
 
-  /// Validate the [FormContext] and return `true` if the form is valid.
+  /// Validate the [FormController] and return `true` if the form is valid.
   Future<bool> validate(BuildContext context) async {
     _isValidating = true;
     notifyListeners();
@@ -66,7 +66,7 @@ mixin FormValidator<F extends FormFieldValidator> on FormContext<F> {
     notifyListeners();
   }
 
-  /// Set the errors of [FormContext].
+  /// Set the errors of [FormController].
   void setErrors(FormErrors errors) {
     if (_errors == errors) return;
 
@@ -119,7 +119,7 @@ mixin FormFieldValidator<T> on FormFieldFocusable<T> {
     });
   }
 
-  /// Called by the [FormContext] to validate the field.
+  /// Called by the [FormController] to validate the field.
   @protected
   FutureOr<bool> validate() async {
     final field = await context.cast<FormValidator>().validateField(key);
@@ -134,7 +134,7 @@ mixin FormFieldValidator<T> on FormFieldFocusable<T> {
     notifyListeners();
   }
 
-  /// Called by the [FormContext] to set the error message.
+  /// Called by the [FormController] to set the error message.
   @protected
   void setError(String? error) => context.cast<FormValidator>().setFieldError(key, error);
 

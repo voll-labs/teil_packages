@@ -4,14 +4,14 @@ part of 'form.dart';
 mixin FormSubmission<F extends FormFieldValidator> on FormValidator<F> {
   bool _isSubmitting = false;
 
-  /// Whether the [FormContext] is submitting.
+  /// Whether the [FormController] is submitting.
   bool get isSubmitting => _isSubmitting;
 
   /// Handle the form submission.
   @protected
   Future<void> handleSubmit(BuildContext context);
 
-  /// Submit the [FormContext] and return `true` if the form is valid.
+  /// Submit the [FormController] and return `true` if the form is valid.
   Future<void> submit(BuildContext context) async {
     if (isSubmitting) return;
     _isSubmitting = true;
@@ -20,8 +20,8 @@ mixin FormSubmission<F extends FormFieldValidator> on FormValidator<F> {
     final isValid = await validate(context);
     if (!context.mounted) return;
 
-    return startTransition(() {
-      if (isValid) return handleSubmit(context);
+    return startTransition(() async {
+      if (isValid) await handleSubmit(context);
 
       _isSubmitting = false;
       notifyListeners();

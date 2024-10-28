@@ -1,23 +1,24 @@
 part of 'form.dart';
 
 /// Base class for form controllers.
-abstract class FormContext<F extends BaseFormField> extends TransitionNotifier with Diagnosticable {
-  /// Creates a [FormContext].
-  FormContext();
+abstract class FormController<F extends BaseFormField> extends TransitionNotifier
+    with Diagnosticable {
+  /// Creates a [FormController].
+  FormController();
 
   final Map<FieldKey, F> _fields = {};
 
-  /// The fields of the [FormContext].
+  /// The fields of the [FormController].
   @protected
   Map<FieldKey, F> get fields => UnmodifiableMapView(_fields);
 
-  /// Cast the [FormContext] to a specific type.
+  /// Cast the [FormController] to a specific type.
   @protected
-  C cast<C extends FormContext>() => this as C;
+  C cast<C extends FormController>() => this as C;
 
-  /// Try to cast the [FormContext] to a specific type.
+  /// Try to cast the [FormController] to a specific type.
   @protected
-  C? tryCast<C extends FormContext>() => this is C ? cast<C>() : null;
+  C? tryCast<C extends FormController>() => this is C ? cast<C>() : null;
 
   /// Register a field to the form controller
   void register(F field) {
