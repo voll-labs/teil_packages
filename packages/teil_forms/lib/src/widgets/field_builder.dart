@@ -33,11 +33,15 @@ class FieldBuilder<F extends BaseFormField> extends StatefulWidget {
   State<FieldBuilder<F>> createState() => _FieldBuilderState<F>();
 }
 
-class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>> {
+class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
+    with AutomaticKeepAliveClientMixin {
   late F _formField;
 
   bool _registered = false;
   late FormController _formController;
+
+  @override
+  bool get wantKeepAlive => _registered;
 
   @override
   void initState() {
@@ -65,6 +69,8 @@ class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return _FieldScope<F>(
       notifier: _formField,
       child: ValueListenableBuilder(
