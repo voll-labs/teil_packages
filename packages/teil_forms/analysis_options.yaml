@@ -7,7 +7,3 @@ linter:
     sort_constructors_first: false
     avoid_setters_without_getters: false
     lines_longer_than_80_chars: false
-
-analyzer:
-  language:
-    strict-raw-types: false

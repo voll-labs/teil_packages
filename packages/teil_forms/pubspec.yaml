@@ -18,5 +18,4 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   mocktail: ^1.0.4
-  teil_lints:
-    very_good_analysis: ^6.0.0
+  very_good_analysis: ^6.0.0

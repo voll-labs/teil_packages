@@ -169,7 +169,7 @@ packages:
     source: hosted
     version: "1.2.0"
   teil_lints:
-    dependency: "direct dev"
+    dependency: "direct overridden"
     description:
       path: "../teil_lints"
       relative: true
@@ -200,7 +200,7 @@ packages:
     source: hosted
     version: "2.1.4"
   very_good_analysis:
-    dependency: transitive
+    dependency: "direct dev"
     description:
       name: very_good_analysis
       sha256: "1fb637c0022034b1f19ea2acb42a3603cbd8314a470646a59a2fb01f5f3a8629"

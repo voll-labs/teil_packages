@@ -1,7 +1,9 @@
 import 'dart:async';
 
+import 'package:meta/meta.dart';
 import 'package:teil_forms/teil_forms.dart';
 
+@optionalTypeArgs
 sealed class TestFieldState<T> extends TeilFormField<T> {
   TestFieldState(super.value);
 }
