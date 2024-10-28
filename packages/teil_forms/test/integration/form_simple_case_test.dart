@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:teil_forms/teil_forms.dart';
 
 import '../mocks/mocks.dart';
 
 void main() {
   group('FormSimpleCasePage', () {
-    testWidgets('Should trigger form values changes', (tester) async {
+    testWidgets('Should submit form values', (tester) async {
       final controller = TestFormController(
         name: NameField(''),
         email: EmailField(null),
-      );
+      ).._onSubmitted = _SpyCallback();
 
       await tester.pumpWidget(MaterialApp(home: FormSimpleCasePage(controller: controller)));
       await tester.pumpAndSettle();
@@ -22,6 +23,7 @@ void main() {
       await tester.pump();
 
       expect(controller.name.value, 'Test Person');
+      expect(controller.name.value, controller.name.textController.text);
       expect(find.text('[Test Person, null]'), findsOneWidget);
 
       final findEmailField = find.byKey(Key(controller.email.key));
@@ -29,15 +31,28 @@ void main() {
       await tester.pump();
 
       expect(controller.email.value, 'test@test.com');
+      expect(controller.email.value, controller.email.textController.text);
       expect(find.text('[Test Person, test@test.com]'), findsOneWidget);
 
       controller.email.value = 'changed@test.com';
       await tester.pump();
 
       expect(controller.email.value, 'changed@test.com');
+      expect(controller.email.value, controller.email.textController.text);
       expect(find.text('[Test Person, changed@test.com]'), findsOneWidget);
+
+      final findSubmitButton = find.byKey(const Key('submit_button'));
+      await tester.tap(findSubmitButton);
+      await tester.pump();
+
+      verify(() => controller._onSubmitted.call()).called(1);
     });
   });
+}
+
+class _SpyCallback extends Mock {
+  _SpyCallback();
+  void call();
 }
 
 final class TestFormController extends TeilFormController<TestFieldState> {
@@ -45,12 +60,13 @@ final class TestFormController extends TeilFormController<TestFieldState> {
 
   final EmailField email;
 
+  late _SpyCallback _onSubmitted;
+
   TestFormController({required this.name, required this.email});
 
   @override
-  Future<void> handleSubmit(BuildContext context) {
-    // TODO: implement handleSubmit
-    throw UnimplementedError();
+  Future<void> handleSubmit(BuildContext context) async {
+    _onSubmitted();
   }
 }
 
@@ -79,8 +95,7 @@ class _FormSimpleCasePageState extends State<FormSimpleCasePage> {
                 builder: (context, field) {
                   return TextFormField(
                     key: Key(field.key),
-                    initialValue: field.value,
-                    onChanged: (value) => field.value = value,
+                    controller: field.textController,
                     decoration: InputDecoration(labelText: 'Name', errorText: field.errorText),
                   );
                 },
@@ -90,8 +105,7 @@ class _FormSimpleCasePageState extends State<FormSimpleCasePage> {
                 builder: (context, field) {
                   return TextFormField(
                     key: Key(field.key),
-                    initialValue: field.value,
-                    onChanged: (value) => field.value = value,
+                    controller: field.textController,
                     decoration: InputDecoration(labelText: 'Email', errorText: field.errorText),
                   );
                 },
@@ -111,12 +125,13 @@ class _FormSimpleCasePageState extends State<FormSimpleCasePage> {
           bottomNavigationBar: BottomAppBar(
             child: Row(
               children: [
-                // TODO(Ohashi): Add a button to reset the form
-                // ElevatedButton(
-                //   onPressed: controller.reset,
-                //   child: const Text('Reset'),
-                // ),
+                TextButton(
+                  key: const Key('reset_button'),
+                  onPressed: controller.reset,
+                  child: const Text('Reset'),
+                ),
                 ElevatedButton(
+                  key: const Key('submit_button'),
                   onPressed: !controller.isSubmitting ? () => controller.submit(context) : null,
                   child: controller.isSubmitting
                       ? const CircularProgressIndicator()
