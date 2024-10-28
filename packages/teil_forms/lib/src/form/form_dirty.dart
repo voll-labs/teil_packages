@@ -21,16 +21,26 @@ mixin FormDirty<F extends FormFieldDirty> on FormController<F> {
     }
     notifyListeners();
   }
+
+  @override
+  @mustCallSuper
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('isDirty', isDirty))
+      ..add(DiagnosticsProperty('dirtyFields', dirtyFields));
+  }
 }
 
 /// Mixin that provides dirty field tracking for a [FormField].
+@optionalTypeArgs
 mixin FormFieldDirty<T> on BaseFormField<T> {
   bool _isDirty = false;
 
   /// Whether the [FormField] is dirty.
   bool get isDirty => _isDirty;
 
-  void _verify() {
+  void _verifyDirty() {
     final isDirty = value != initialValue;
     if (_isDirty == isDirty) return;
 
@@ -41,9 +51,14 @@ mixin FormFieldDirty<T> on BaseFormField<T> {
 
   @override
   set value(T value) {
-    startTransition(() {
-      super.value = value;
-      _verify();
-    });
+    super.value = value;
+    _verifyDirty();
+  }
+
+  @override
+  @mustCallSuper
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('isDirty', isDirty));
   }
 }

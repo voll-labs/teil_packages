@@ -5,12 +5,18 @@ typedef FormErrors = Map<FieldKey, String>;
 
 /// Mixin that provides validation for a [FormController].
 mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
+  /// The validation mode of the [FormController].
+  FieldValidationMode get validationMode => FieldValidationMode.onSubmit;
+
   bool _isValidating = false;
 
   /// Whether the [FormController] is validating.
   bool get isValidating => _isValidating;
 
   final FormErrors _errors = {};
+
+  /// Whether the [FormController] has no errors.
+  bool get isValid => _errors.isEmpty;
 
   /// The errors of the [FormController].
   FormErrors get errors => UnmodifiableMapView(_errors);
@@ -47,12 +53,12 @@ mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
     return startTransition(() async {
       final fieldsWithError = await Future.wait(fields.keys.map(_validateField));
       final field = fieldsWithError.nonNulls.firstOrNull;
-      if (field != null) field.requestFocus();
+      field?.tryCast<FormFieldFocusable>()?.requestFocus();
 
       _isValidating = false;
       notifyListeners();
 
-      return _errors.isValid;
+      return isValid;
     });
   }
 
@@ -83,12 +89,15 @@ mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
     super.debugFillProperties(properties);
     properties
       ..add(DiagnosticsProperty('isValidating', isValidating))
-      ..add(DiagnosticsProperty('errors', errors));
+      ..add(DiagnosticsProperty('validationMode', validationMode))
+      ..add(DiagnosticsProperty('errors', errors))
+      ..add(DiagnosticsProperty('isValid', isValid));
   }
 }
 
 /// Mixin that provides validation for a form field.
-mixin FormFieldValidator<T> on FormFieldFocusable<T> {
+@optionalTypeArgs
+mixin FormFieldValidator<T> on BaseFormField<T> {
   bool _isValidating = false;
 
   /// Whether the field is validating.
@@ -123,7 +132,7 @@ mixin FormFieldValidator<T> on FormFieldFocusable<T> {
   @protected
   FutureOr<bool> validate() async {
     final field = await context.cast<FormValidator>().validateField(key);
-    if (field != null) field.requestFocus();
+    field?.tryCast<FormFieldFocusable>()?.requestFocus();
 
     return field == null;
   }
@@ -139,6 +148,16 @@ mixin FormFieldValidator<T> on FormFieldFocusable<T> {
   void setError(String? error) => context.cast<FormValidator>().setFieldError(key, error);
 
   @override
+  set value(T value) {
+    super.value = value;
+
+    final form = context.cast<FormValidator>();
+    if (form.validationMode.shouldValidate(FieldValidationMode.onChanged)) {
+      form.validateField(key);
+    }
+  }
+
+  @override
   @mustCallSuper
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
@@ -149,8 +168,6 @@ mixin FormFieldValidator<T> on FormFieldFocusable<T> {
 }
 
 extension on FormErrors {
-  bool get isValid => isEmpty;
-
   void upsertError(FieldKey key, String? error) {
     if (error != null) {
       this[key] = error;

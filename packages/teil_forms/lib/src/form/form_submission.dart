@@ -1,7 +1,7 @@
 part of 'form.dart';
 
 /// Mixin that provides submission for a [FormValidator].
-mixin FormSubmission<F extends FormFieldValidator> on FormValidator<F> {
+mixin FormSubmission<F extends BaseFormField> on FormController<F> {
   bool _isSubmitting = false;
 
   /// Whether the [FormController] is submitting.
@@ -11,13 +11,19 @@ mixin FormSubmission<F extends FormFieldValidator> on FormValidator<F> {
   @protected
   Future<void> handleSubmit(BuildContext context);
 
+  Future<bool> _validate(BuildContext context) async {
+    final form = tryCast<FormValidator>();
+    await form?.validate(context);
+    return form?.isValid ?? true;
+  }
+
   /// Submit the [FormController] and return `true` if the form is valid.
   Future<void> submit(BuildContext context) async {
     if (isSubmitting) return;
     _isSubmitting = true;
     notifyListeners();
 
-    final isValid = await validate(context);
+    final isValid = await _validate(context);
     if (!context.mounted) return;
 
     return startTransition(() async {

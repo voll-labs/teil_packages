@@ -12,14 +12,6 @@ abstract class FormController<F extends BaseFormField> extends TransitionNotifie
   @protected
   Map<FieldKey, F> get fields => UnmodifiableMapView(_fields);
 
-  /// Cast the [FormController] to a specific type.
-  @protected
-  C cast<C extends FormController>() => this as C;
-
-  /// Try to cast the [FormController] to a specific type.
-  @protected
-  C? tryCast<C extends FormController>() => this is C ? cast<C>() : null;
-
   /// Register a field to the form controller
   void register(F field) {
     assert(!_fields.containsKey(field.key), 'Field with key ${field.key} already registered.');
@@ -36,6 +28,14 @@ abstract class FormController<F extends BaseFormField> extends TransitionNotifie
     field.unbind();
     _fields.remove(field.key);
   }
+
+  /// Cast the [FormController] to a specific type.
+  @protected
+  C cast<C extends FormController>() => this as C;
+
+  /// Try to cast the [FormController] to a specific type.
+  @protected
+  C? tryCast<C extends FormController>() => this is C ? cast<C>() : null;
 
   @override
   void dispose() {

@@ -1,6 +1,7 @@
 part of 'form.dart';
 
 /// Mixin that provides focus for a [FormField].
+@optionalTypeArgs
 mixin FormFieldFocusable<T> on BaseFormField<T> {
   final FocusNode _focusNode = FocusNode();
 
@@ -17,5 +18,12 @@ mixin FormFieldFocusable<T> on BaseFormField<T> {
   void dispose() {
     _focusNode.dispose();
     super.dispose();
+  }
+
+  @override
+  @mustCallSuper
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('hasFocus', _focusNode.hasFocus));
   }
 }

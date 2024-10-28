@@ -12,7 +12,9 @@ mixin ControlledTextField on BaseFormField<String?> {
   }
 
   void _controllerListener() {
-    value = _controller!.text;
+    if (value != _controller!.text) {
+      value = _controller!.text;
+    }
   }
 
   /// Returns a [TextEditingController] that is connected to the [value] of the field.
@@ -26,6 +28,7 @@ mixin ControlledTextField on BaseFormField<String?> {
 
   @override
   void dispose() {
+    removeListener(_valueListener);
     _controller?.dispose();
     _controller = null;
     super.dispose();

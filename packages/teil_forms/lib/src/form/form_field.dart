@@ -4,10 +4,11 @@ part of 'form.dart';
 typedef FieldKey = String;
 
 /// Base class for form fields.
+@optionalTypeArgs
 abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnosticable {
   /// The initial value of the field.
   @protected
-  final T initialValue;
+  T initialValue;
 
   /// Create a form field.
   BaseFormField(super.value) : initialValue = value;
@@ -41,12 +42,21 @@ abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnost
   @mustCallSuper
   void unbind() => _context = null;
 
+  /// Cast the [BaseFormField] to a specific type.
+  @protected
+  F cast<F extends BaseFormField>() => this as F;
+
+  /// Try to cast the [BaseFormField] to a specific type.
+  @protected
+  F? tryCast<F extends BaseFormField>() => this is F ? cast<F>() : null;
+
   @override
   @mustCallSuper
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty<FieldKey>('key', key))
-      ..add(DiagnosticsProperty<bool>('bound', bound));
+      ..add(DiagnosticsProperty('key', key))
+      ..add(DiagnosticsProperty('value', value))
+      ..add(DiagnosticsProperty('bound', bound));
   }
 }
