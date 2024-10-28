@@ -31,51 +31,60 @@ class _SimpleCaseExampleState extends State<SimpleCaseExample> {
       controller: _controller,
       builder: (context, controller) {
         return Scaffold(
-          body: ListView(
-            children: [
-              FieldBuilder(
-                field: controller.name,
-                builder: (context, field) {
-                  return TextFormField(
-                    key: ValueKey(field),
-                    initialValue: field.value,
-                    onChanged: (value) => field.value = value,
-                    decoration: InputDecoration(labelText: 'Name', errorText: field.errorText),
-                  );
-                },
-              ),
-              FieldBuilder(
-                field: controller.email,
-                builder: (context, field) {
-                  return TextFormField(
-                    key: ValueKey(field),
-                    initialValue: field.value,
-                    onChanged: (value) => field.value = value,
-                    decoration: InputDecoration(labelText: 'Email', errorText: field.errorText),
-                  );
-                },
-              ),
-              ListenableBuilder(
-                listenable: Listenable.merge([controller.name, controller.email]),
-                builder: (context, _) {
-                  return Text(
-                    key: const Key('field_values'),
-                    // ignore: invalid_use_of_protected_member
-                    '[${controller.fields.values.map((f) => f.value).join(', ')}]',
-                  );
-                },
-              ),
-            ],
+          body: SafeArea(
+            child: ListView(
+              padding: const EdgeInsets.all(24),
+              children: [
+                FieldBuilder(
+                  field: controller.name,
+                  builder: (context, field) {
+                    return TextFormField(
+                      focusNode: field.focusNode,
+                      controller: field.textController,
+                      decoration: InputDecoration(labelText: 'Name', errorText: field.errorText),
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+                FieldBuilder(
+                  field: controller.email,
+                  builder: (context, field) {
+                    return TextFormField(
+                      focusNode: field.focusNode,
+                      controller: field.textController,
+                      decoration: InputDecoration(labelText: 'Email', errorText: field.errorText),
+                    );
+                  },
+                ),
+                const SizedBox(height: 24),
+                ListenableBuilder(
+                  listenable: Listenable.merge([controller.name, controller.email]),
+                  builder: (context, _) {
+                    return Text(
+                      key: const Key('field_values'),
+                      // ignore: invalid_use_of_protected_member
+                      'Value: [${controller.fields.values.map((f) => f.value).join(', ')}]',
+                    );
+                  },
+                ),
+                Text(
+                  key: const Key('field_dirty'),
+                  // ignore: invalid_use_of_protected_member
+                  'Dirty: ${controller.dirtyFields}',
+                ),
+              ],
+            ),
           ),
           bottomNavigationBar: BottomAppBar(
             child: Row(
               children: [
-                // TODO(Ohashi): Add a button to reset the form
-                // ElevatedButton(
-                //   onPressed: controller.reset,
-                //   child: const Text('Reset'),
-                // ),
-                ElevatedButton(
+                const Spacer(),
+                TextButton(
+                  onPressed: controller.reset,
+                  child: const Text('Reset'),
+                ),
+                const SizedBox(width: 24),
+                FilledButton(
                   onPressed: !controller.isSubmitting ? () => controller.submit(context) : null,
                   child: controller.isSubmitting
                       ? const CircularProgressIndicator()

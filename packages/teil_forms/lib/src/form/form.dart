@@ -1,28 +1,23 @@
 import 'dart:async';
 import 'dart:collection';
 
+import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
+import 'package:teil_forms/src/entities/transition_notifier.dart';
 
-part 'form_controller.dart';
+part 'form_context.dart';
+part 'form_dirty.dart';
 part 'form_field.dart';
 part 'form_focusable.dart';
-part 'form_submitter.dart';
+part 'form_resetter.dart';
+part 'form_sent.dart';
 part 'form_validator.dart';
 
-class TeilFormField<T> extends BaseFormField<T> with FormFieldFocusable<T>, FormFieldValidator<T> {
-  TeilFormField(super.value);
-}
+abstract class TeilFormController<F extends TeilFormState> extends FormContext<F>
+    with FormValidator<F>, FormResetter<F>, FormSent<F>, FormDirty<F> {}
 
-class TeilFormController<F extends TeilFormField<dynamic>> extends BaseFormController<F>
-    with FormControllerSubmitter<F>, FormControllerValidator<F> {
-  @override
-  Future<void> submit(BuildContext context) async {
-    if (isSubmitting) return;
-
-    final isValid = await _validate();
-    if (!context.mounted) return;
-
-    if (isValid) return _submit(context);
-  }
+class TeilFormState<T> extends BaseFormField<T>
+    with FormFieldFocusable<T>, FormFieldValidator<T>, FormFieldResetter<T>, FormFieldDirty<T> {
+  TeilFormState(super.value);
 }

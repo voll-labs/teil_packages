@@ -2,69 +2,157 @@ part of 'form.dart';
 
 typedef FormErrors = Map<FieldKey, String>;
 
-mixin FormControllerValidator<F extends BaseFormField<dynamic>> on BaseFormController<F> {
-  FormErrors _errors = {};
+mixin FormValidator<F extends FormFieldValidator> on FormContext<F> {
+  bool _isValidating = false;
+
+  /// Whether the [FormContext] is validating.
+  bool get isValidating => _isValidating;
+
+  final FormErrors _errors = {};
+
+  /// The errors of the [FormContext].
   FormErrors get errors => UnmodifiableMapView(_errors);
 
-  Future<FormErrors> validate() async {
-    final fieldsToValidate = fields.values.whereType<FormFieldValidator<dynamic>>();
-
-    final errors = await Future.wait(
-      fieldsToValidate.map((field) async {
-        field.setValidating();
-        final error = await field.validate();
-        if (error != null) return MapEntry(field.key, error);
-      }),
-    );
-
-    return Map.fromEntries(errors.nonNulls);
-  }
-
-  void setErrors(FormErrors errors) {
-    if (errors != _errors) {
-      _errors = errors;
-      _errors.forEach(_dispatchErrors);
-      notifyListeners();
-    }
-  }
-
-  void _dispatchErrors(FieldKey key, String error) {
+  Future<F?> _validateField(FieldKey key) async {
     final field = fields[key];
-    if (field is FormFieldValidator) {
-      field.setError(error);
-    }
+    if (field == null) return null;
+
+    await field._validate();
+    setFieldError(key, field.errorText);
+
+    if (!field.hasError) return null;
+    return field;
   }
 
-  Future<bool> _validate() async {
-    final validations = await validate();
-    setErrors(validations);
-    return _errors.isEmpty;
+  /// Validate a field and return the field if it has an error.
+  Future<F?> validateField(FieldKey key) async {
+    _isValidating = true;
+    notifyListeners();
+
+    return startTransition(() async {
+      final field = await _validateField(key);
+      _isValidating = false;
+      notifyListeners();
+      return field;
+    });
+  }
+
+  /// Validate the [FormContext] and return `true` if the form is valid.
+  Future<bool> validate(BuildContext context) async {
+    _isValidating = true;
+    notifyListeners();
+
+    return startTransition(() async {
+      final fieldsWithError = await Future.wait(fields.keys.map(_validateField));
+      final field = fieldsWithError.nonNulls.firstOrNull;
+      if (field != null) field.requestFocus();
+
+      _isValidating = false;
+      notifyListeners();
+
+      return _errors.isValid;
+    });
+  }
+
+  /// Set a unique field error.
+  void setFieldError(FieldKey key, String? error) {
+    final field = fields[key];
+    if (field == null) return;
+
+    field._setError(error);
+    _errors.upsertError(key, error);
+    notifyListeners();
+  }
+
+  /// Set the errors of [FormContext].
+  void setErrors(FormErrors errors) {
+    if (_errors == errors) return;
+
+    startTransition(() {
+      for (final entry in errors.entries) {
+        setFieldError(entry.key, entry.value);
+      }
+    });
+  }
+
+  @override
+  @mustCallSuper
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('isValidating', isValidating))
+      ..add(DiagnosticsProperty('errors', errors));
   }
 }
 
-mixin FormFieldValidator<T> on BaseFormField<T> {
-  String? _errorText;
-  String? get errorText => _errorText;
-  bool get hasError => _errorText != null;
-
+mixin FormFieldValidator<T> on FormFieldFocusable<T> {
   bool _isValidating = false;
+
+  /// Whether the field is validating.
   bool get isValidating => _isValidating;
 
-  void setValidating() {
-    if (!_isValidating) {
-      _isValidating = true;
+  String? _errorText;
+
+  /// The error message of the field.
+  String? get errorText => _errorText;
+
+  /// Whether the field has an error.
+  bool get hasError => _errorText != null;
+
+  /// Validate the field and return an error message if the field is invalid.
+  @protected
+  FutureOr<String?> handleValidate() => null;
+
+  FutureOr<void> _validate() async {
+    _isValidating = true;
+    notifyListeners();
+
+    return startTransition(() async {
+      final error = await handleValidate();
+      _setError(error);
+
+      _isValidating = false;
       notifyListeners();
-    }
+    });
   }
 
-  void setError(String? error) {
-    _isValidating = false;
+  /// Called by the [FormContext] to validate the field.
+  @protected
+  FutureOr<bool> validate() async {
+    final field = await context.cast<FormValidator>().validateField(key);
+    if (field != null) field.requestFocus();
 
-    if (_errorText != error) {
-      _errorText = error;
-      notifyListeners();
-    }
+    return field == null;
   }
 
-  FutureOr<String?> validate() => null;
+  void _setError(String? error) {
+    if (_errorText == error) return;
+    _errorText = error;
+    notifyListeners();
+  }
+
+  /// Called by the [FormContext] to set the error message.
+  @protected
+  void setError(String? error) => context.cast<FormValidator>().setFieldError(key, error);
+
+  @override
+  @mustCallSuper
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<bool>('isValidating', isValidating))
+      ..add(DiagnosticsProperty<String>('errorText', errorText));
+  }
+}
+
+extension on FormErrors {
+  bool get isValid => isEmpty;
+
+  void upsertError(FieldKey key, String? error) {
+    if (error != null) {
+      this[key] = error;
+      return;
+    }
+    remove(key);
+  }
 }

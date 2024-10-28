@@ -1,5 +1,10 @@
 include: ../../analysis_options.yaml
 
+linter:
+  rules:
+    # TODO(Ohashi): Remove this rule when all public members have documentation.
+    public_member_api_docs: false
+
 analyzer:
- enable-experiment:
-   - macros
+  language:
+    strict-raw-types: false

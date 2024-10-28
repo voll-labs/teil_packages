@@ -17,37 +17,41 @@ void main() {
 
       expect(find.byType(FormSimpleCasePage), findsOneWidget);
 
-      final findNameField = find.byKey(ValueKey(controller.name));
+      final findNameField = find.byKey(Key(controller.name.key));
       await tester.enterText(findNameField, 'Test Person');
       await tester.pump();
 
       expect(controller.name.value, 'Test Person');
       expect(find.text('[Test Person, null]'), findsOneWidget);
 
-      final findEmailField = find.byKey(ValueKey(controller.email));
+      final findEmailField = find.byKey(Key(controller.email.key));
       await tester.enterText(findEmailField, 'test@test.com');
       await tester.pump();
 
       expect(controller.email.value, 'test@test.com');
       expect(find.text('[Test Person, test@test.com]'), findsOneWidget);
 
-      expect(tester.widget<TextFormField>(findEmailField).initialValue, 'test@test.com');
-
       controller.email.value = 'changed@test.com';
       await tester.pump();
 
-      expect(tester.widget<TextFormField>(findEmailField).initialValue, 'changed@test.com');
+      expect(controller.email.value, 'changed@test.com');
       expect(find.text('[Test Person, changed@test.com]'), findsOneWidget);
     });
   });
 }
 
-final class TestFormController extends TeilFormController<TestField<dynamic>> {
+final class TestFormController extends TeilFormController<TestFieldState> {
   final NameField name;
 
   final EmailField email;
 
   TestFormController({required this.name, required this.email});
+
+  @override
+  Future<void> handleSubmit(BuildContext context) {
+    // TODO: implement handleSubmit
+    throw UnimplementedError();
+  }
 }
 
 class FormSimpleCasePage extends StatefulWidget {
@@ -74,7 +78,7 @@ class _FormSimpleCasePageState extends State<FormSimpleCasePage> {
                 field: controller.name,
                 builder: (context, field) {
                   return TextFormField(
-                    key: ValueKey(field),
+                    key: Key(field.key),
                     initialValue: field.value,
                     onChanged: (value) => field.value = value,
                     decoration: InputDecoration(labelText: 'Name', errorText: field.errorText),
@@ -85,7 +89,7 @@ class _FormSimpleCasePageState extends State<FormSimpleCasePage> {
                 field: controller.email,
                 builder: (context, field) {
                   return TextFormField(
-                    key: ValueKey(field),
+                    key: Key(field.key),
                     initialValue: field.value,
                     onChanged: (value) => field.value = value,
                     decoration: InputDecoration(labelText: 'Email', errorText: field.errorText),

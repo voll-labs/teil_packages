@@ -3,22 +3,21 @@ import 'package:teil_forms/src/form/form.dart';
 
 typedef FormWidgetBuilder<C> = Widget Function(BuildContext context, C controller);
 
-class FormBuilder<C extends BaseFormController> extends StatefulWidget {
+class FormBuilder<C extends FormContext> extends StatefulWidget {
   final C controller;
 
   final FormWidgetBuilder<C> builder;
 
   const FormBuilder({required this.builder, required this.controller, super.key});
 
-  static C? maybeOf<C extends BaseFormController>(BuildContext context) {
+  static C? maybeOf<C extends FormContext>(BuildContext context) {
     final scope = context.dependOnInheritedWidgetOfExactType<_FormScope>();
-    assert(scope != null, 'No FormBuilder widget found in context.');
-    return scope!.controller is C ? scope.controller as C : null;
+    assert(scope?.notifier != null, 'No FormContext(${C.runtimeType}) found in context.');
+    return scope!.notifier is C ? scope.notifier! as C : null;
   }
 
-  static C of<C extends BaseFormController>(BuildContext context) {
+  static C of<C extends FormContext>(BuildContext context) {
     final controller = FormBuilder.maybeOf<C>(context);
-    assert(controller != null, 'Invalid form controller type.');
     return controller!;
   }
 
@@ -26,7 +25,7 @@ class FormBuilder<C extends BaseFormController> extends StatefulWidget {
   State<FormBuilder<C>> createState() => _FormBuilderState<C>();
 }
 
-class _FormBuilderState<C extends BaseFormController> extends State<FormBuilder<C>> {
+class _FormBuilderState<C extends FormContext> extends State<FormBuilder<C>> {
   late C _controller;
 
   @override
@@ -38,19 +37,15 @@ class _FormBuilderState<C extends BaseFormController> extends State<FormBuilder<
   @override
   Widget build(BuildContext context) {
     return _FormScope(
-      controller: _controller,
-      child: Builder(builder: (context) => widget.builder(context, _controller)),
+      notifier: _controller,
+      child: ListenableBuilder(
+        listenable: _controller,
+        builder: (context, _) => widget.builder(context, _controller),
+      ),
     );
   }
 }
 
-class _FormScope extends InheritedWidget {
-  final BaseFormController controller;
-
-  const _FormScope({required this.controller, required super.child});
-
-  @override
-  bool updateShouldNotify(_FormScope oldWidget) {
-    return controller != oldWidget.controller;
-  }
+class _FormScope extends InheritedNotifier<FormContext> {
+  const _FormScope({required super.notifier, required super.child});
 }
