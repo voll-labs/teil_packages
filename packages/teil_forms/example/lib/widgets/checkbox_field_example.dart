@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 
-class CheckboxExample extends StatelessWidget {
+class CheckboxFieldExample extends StatelessWidget {
   final String label;
 
-  const CheckboxExample({required this.label, super.key});
+  const CheckboxFieldExample({required this.label, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -1,6 +1,6 @@
 import 'package:example/simple_case/simple_case_fields.dart';
 import 'package:example/simple_case/simple_case_mocks.dart';
-import 'package:example/widgets/search_field_example.dart';
+import 'package:example/widgets/switch_field_example.dart';
 import 'package:example/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
@@ -26,7 +26,9 @@ class _SimpleCaseExampleState extends State<SimpleCaseExample> {
       email: EmailField(null),
       company: CompanyField(null),
       companyPosition: CompanyPositionField(null),
-      agreeTerms: AgreeTermsField(value: false),
+      radioExample: RadioExampleField(),
+      activeProfile: ActiveProfileField(),
+      agreeTerms: AgreeTermsField(),
     );
     super.initState();
   }
@@ -41,25 +43,17 @@ class _SimpleCaseExampleState extends State<SimpleCaseExample> {
             child: ListView(
               padding: const EdgeInsets.all(12),
               children: [
-                FieldBuilder(
+                FieldBuilder<TeilFormField<String?>>(
                   field: controller.name,
                   builder: (context, field) {
-                    return TextFormField(
-                      focusNode: field.focusNode,
-                      controller: field.textController,
-                      decoration: InputDecoration(labelText: 'Name', errorText: field.errorText),
-                    );
+                    return const TextFieldExample(label: 'Name');
                   },
                 ),
                 const SizedBox(height: 24),
-                FieldBuilder(
+                FieldBuilder<TeilFormField<String?>>(
                   field: controller.email,
                   builder: (context, field) {
-                    return TextFormField(
-                      focusNode: field.focusNode,
-                      controller: field.textController,
-                      decoration: InputDecoration(labelText: 'Email', errorText: field.errorText),
-                    );
+                    return const TextFieldExample(label: 'Email');
                   },
                 ),
                 const SizedBox(height: 24),
@@ -89,10 +83,24 @@ class _SimpleCaseExampleState extends State<SimpleCaseExample> {
                   },
                 ),
                 const SizedBox(height: 24),
+                FieldBuilder<TeilFormField<RadioExampleValue>>(
+                  field: controller.radioExample,
+                  builder: (context, field) {
+                    return const RadioFieldExample(values: RadioExampleValue.values);
+                  },
+                ),
+                const SizedBox(height: 24),
+                FieldBuilder<TeilFormField<bool>>(
+                  field: controller.activeProfile,
+                  builder: (context, field) {
+                    return const SwitchFieldExample(label: 'Active profile');
+                  },
+                ),
+                const SizedBox(height: 24),
                 FieldBuilder<TeilFormField<bool>>(
                   field: controller.agreeTerms,
                   builder: (context, field) {
-                    return const CheckboxExample(label: 'Agree to terms');
+                    return const CheckboxFieldExample(label: 'Agree to terms');
                   },
                 ),
                 const SizedBox(height: 24),
