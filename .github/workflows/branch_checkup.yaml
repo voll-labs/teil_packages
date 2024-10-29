@@ -1,9 +1,14 @@
-name: Pull request validation
+name: Branch Checkup
+
 on:
   push:
-    branches: [main]
-  pull_request:
-    types: [opened, reopened, synchronize]
+    branches:
+      - main
+  pull_request_target:
+    types:
+      - opened
+      - edited
+      - synchronize
 
 jobs:
   analyze:
@@ -25,3 +30,14 @@ jobs:
       - uses: bluefireteam/melos-action@v3
       - name: Run tests
         run: melos test
+
+  test:integration:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          cache: true
+      - uses: bluefireteam/melos-action@v3
+      - name: Run integration tests
+        run: melos test:integration
