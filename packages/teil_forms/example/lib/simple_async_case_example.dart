@@ -16,11 +16,11 @@ class _SimpleAsyncCaseExample extends StatefulWidget {
 }
 
 class _SimpleAsyncCaseExampleState extends State<_SimpleAsyncCaseExample> {
-  final _controllerKey = FormBuilderKey<SimpleFormController>();
+  final _controllerKey = FormBuilderKey<SimpleAsyncFormController>();
 
-  Future<SimpleFormController> _fetchController() async {
+  Future<SimpleAsyncFormController> _fetchController() async {
     return Future.delayed(const Duration(seconds: 3), () {
-      return SimpleFormController(
+      return SimpleAsyncFormController(
         name: NameField(faker.person.name()),
         email: EmailField(faker.internet.email()),
         company: CompanyField(null),

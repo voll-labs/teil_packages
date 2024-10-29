@@ -116,3 +116,18 @@ class SimpleFormController extends TeilFormController<SimpleFormField> {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Form submitted')));
   }
 }
+
+class SimpleAsyncFormController extends SimpleFormController {
+  SimpleAsyncFormController({
+    required super.name,
+    required super.email,
+    required super.company,
+    required super.companyPosition,
+    required super.radioExample,
+    required super.activeProfile,
+    required super.agreeTerms,
+  });
+
+  @override
+  FieldValidationMode get validationMode => FieldValidationMode.onChanged;
+}

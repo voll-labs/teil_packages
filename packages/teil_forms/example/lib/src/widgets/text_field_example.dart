@@ -18,8 +18,13 @@ class TextFieldExample extends StatelessWidget {
       );
     }
 
+    TextEditingController? controller;
+    if (field is ControlledTextField) {
+      controller = field<ControlledTextField>().textController;
+    }
+
     return TextFormField(
-      controller: (field as ControlledTextField).textController,
+      controller: controller,
       focusNode: field.focusNode,
       decoration: InputDecoration(labelText: label, errorText: field.errorText, suffix: suffix),
     );
