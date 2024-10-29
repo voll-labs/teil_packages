@@ -45,7 +45,7 @@ mixin FormFieldDirty<T> on BaseFormField<T> {
     if (_isDirty == isDirty) return;
 
     _isDirty = isDirty;
-    context.cast<FormDirty>()._setDirtyField(key, isDirty);
+    context<FormDirty>()._setDirtyField(key, isDirty);
     notifyListeners();
   }
 

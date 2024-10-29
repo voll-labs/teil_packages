@@ -1,16 +1,19 @@
 part of 'form.dart';
 
+/// A map of [FieldKey] to [BaseFormField].
+typedef FormFields<F extends BaseFormField> = Map<FieldKey, F>;
+
 /// Base class for form controllers.
 abstract class FormController<F extends BaseFormField> extends TransitionNotifier
     with Diagnosticable {
   /// Creates a [FormController].
   FormController();
 
-  final Map<FieldKey, F> _fields = {};
+  final FormFields<F> _fields = {};
 
   /// The fields of the [FormController].
   @protected
-  Map<FieldKey, F> get fields => UnmodifiableMapView(_fields);
+  FormFields<F> get fields => UnmodifiableMapView(_fields);
 
   /// Register a field to the form controller
   void register(F field) {
@@ -31,11 +34,14 @@ abstract class FormController<F extends BaseFormField> extends TransitionNotifie
 
   /// Cast the [FormController] to a specific type.
   @protected
-  C cast<C extends FormController>() => this as C;
+  C call<C extends FormController>() {
+    assert(this is C, 'FormController is not of type $C');
+    return this as C;
+  }
 
   /// Try to cast the [FormController] to a specific type.
   @protected
-  C? tryCast<C extends FormController>() => this is C ? cast<C>() : null;
+  C? tryCast<C extends FormController>() => this is C ? call<C>() : null;
 
   @override
   void dispose() {

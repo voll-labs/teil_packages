@@ -44,11 +44,14 @@ abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnost
 
   /// Cast the [BaseFormField] to a specific type.
   @protected
-  F cast<F extends BaseFormField>() => this as F;
+  F call<F extends BaseFormField>() {
+    assert(this is F, 'Field is not of type $F');
+    return this as F;
+  }
 
   /// Try to cast the [BaseFormField] to a specific type.
   @protected
-  F? tryCast<F extends BaseFormField>() => this is F ? cast<F>() : null;
+  F? tryCast<F extends BaseFormField>() => this is F ? call<F>() : null;
 
   @override
   @mustCallSuper

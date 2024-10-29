@@ -131,7 +131,7 @@ mixin FormFieldValidator<T> on BaseFormField<T> {
   /// Called by the [FormController] to validate the field.
   @protected
   FutureOr<bool> validate() async {
-    final field = await context.cast<FormValidator>().validateField(key);
+    final field = await context<FormValidator>().validateField(key);
     field?.tryCast<FormFieldFocusable>()?.requestFocus();
 
     return field == null;
@@ -145,13 +145,13 @@ mixin FormFieldValidator<T> on BaseFormField<T> {
 
   /// Called by the [FormController] to set the error message.
   @protected
-  void setError(String? error) => context.cast<FormValidator>().setFieldError(key, error);
+  void setError(String? error) => context<FormValidator>().setFieldError(key, error);
 
   @override
   set value(T value) {
     super.value = value;
 
-    final form = context.cast<FormValidator>();
+    final form = context<FormValidator>();
     if (form.validationMode.shouldValidate(FieldValidationMode.onChanged)) {
       form.validateField(key);
     }
