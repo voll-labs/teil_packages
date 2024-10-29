@@ -24,6 +24,7 @@ class RadioFieldExample<T> extends StatelessWidget {
         ...List.generate(values.length, (index) {
           final value = values[index];
           return RadioListTile<T>(
+            key: ValueKey(value),
             fillColor: WidgetStateProperty.resolveWith((_) {
               if (field.errorText != null) return colorsScheme.error;
               return colorsScheme.primary;

@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:example/simple_case/simple_case_mocks.dart';
+import 'package:example/src/entities/entities.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 
@@ -36,6 +36,7 @@ class SearchFieldExample extends StatelessWidget {
 
           return suggestions.map(
             (suggestion) => ListTile(
+              key: Key('suggestion:$suggestion'),
               title: Text(suggestion.value),
               onTap: () {
                 field.value = suggestion;

@@ -15,9 +15,10 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  teil_lints:
-    hosted: https://volltech.jfrog.io/artifactory/api/pub/pub
-    version: ^0.0.5+3
+  integration_test:
+    sdk: flutter
+  mocktail: ^1.0.4
+  very_good_analysis: ^6.0.0
 
 flutter:
   uses-material-design: true

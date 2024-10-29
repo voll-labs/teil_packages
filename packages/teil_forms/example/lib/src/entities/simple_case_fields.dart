@@ -1,15 +1,16 @@
 import 'dart:async';
 import 'dart:developer';
 
-import 'package:example/simple_case/simple_case_mocks.dart';
+import 'package:example/src/entities/entities.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 
-sealed class SimpleFieldState<T> extends TeilFormField<T> {
-  SimpleFieldState(super.value);
+@optionalTypeArgs
+sealed class SimpleFormField<T> extends TeilFormField<T> {
+  SimpleFormField(super.value);
 }
 
-final class NameField extends SimpleFieldState<String?> with ControlledTextField {
+final class NameField extends SimpleFormField<String?> with ControlledTextField {
   NameField(super.value);
 
   @override
@@ -23,11 +24,11 @@ final class NameField extends SimpleFieldState<String?> with ControlledTextField
   }
 }
 
-final class EmailField extends SimpleFieldState<String?> with ControlledTextField {
+final class EmailField extends SimpleFormField<String?> with ControlledTextField {
   EmailField(super.value);
 }
 
-final class CompanyField extends SimpleFieldState<Company?> {
+final class CompanyField extends SimpleFormField<Company?> {
   CompanyField(super.value);
 
   @override
@@ -37,7 +38,7 @@ final class CompanyField extends SimpleFieldState<Company?> {
   }
 }
 
-final class CompanyPositionField extends SimpleFieldState<CompanyPosition?> {
+final class CompanyPositionField extends SimpleFormField<CompanyPosition?> {
   CompanyPositionField(super.value);
 
   @override
@@ -47,7 +48,7 @@ final class CompanyPositionField extends SimpleFieldState<CompanyPosition?> {
   }
 }
 
-final class RadioExampleField extends SimpleFieldState<RadioExampleValue> {
+final class RadioExampleField extends SimpleFormField<RadioExampleValue> {
   RadioExampleField([super.value = RadioExampleValue.one]);
 
   @override
@@ -57,7 +58,7 @@ final class RadioExampleField extends SimpleFieldState<RadioExampleValue> {
   }
 }
 
-final class ActiveProfileField extends SimpleFieldState<bool> {
+final class ActiveProfileField extends SimpleFormField<bool> {
   ActiveProfileField({bool? value}) : super(value ?? false);
 
   @override
@@ -67,7 +68,7 @@ final class ActiveProfileField extends SimpleFieldState<bool> {
   }
 }
 
-final class AgreeTermsField extends SimpleFieldState<bool> {
+final class AgreeTermsField extends SimpleFormField<bool> {
   AgreeTermsField({bool? value}) : super(value ?? false);
 
   @override
@@ -77,7 +78,7 @@ final class AgreeTermsField extends SimpleFieldState<bool> {
   }
 }
 
-final class SimpleFormController extends TeilFormController<SimpleFieldState> {
+class SimpleFormController extends TeilFormController<SimpleFormField> {
   final NameField name;
 
   final EmailField email;
@@ -101,9 +102,6 @@ final class SimpleFormController extends TeilFormController<SimpleFieldState> {
     required this.activeProfile,
     required this.agreeTerms,
   });
-
-  @override
-  FieldValidationMode get validationMode => FieldValidationMode.onChanged;
 
   @override
   Future<void> handleSubmit(BuildContext context) async {

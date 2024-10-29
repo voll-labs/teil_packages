@@ -59,7 +59,10 @@ class FormBuilderState<C extends FormController> extends State<FormBuilder<C>> {
   C? _controller;
 
   /// Get the [FormController].
-  C get controller => _controller!;
+  C get controller {
+    assert(isReady, 'FormController is not ready.');
+    return _controller!;
+  }
 
   /// Get the [FormController] is ready.
   bool get isReady => _controller != null;

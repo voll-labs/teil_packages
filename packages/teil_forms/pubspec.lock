@@ -168,13 +168,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.2.0"
-  teil_lints:
-    dependency: "direct overridden"
-    description:
-      path: "../teil_lints"
-      relative: true
-    source: path
-    version: "0.0.5+3"
   term_glyph:
     dependency: transitive
     description:

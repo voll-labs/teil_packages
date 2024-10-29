@@ -19,13 +19,14 @@ class CardFormDetail extends StatelessWidget {
               listenable: Listenable.merge(form.fields.values),
               builder: (context, _) {
                 return Text(
+                  key: const Key('form_values'),
                   // ignore: invalid_use_of_protected_member
                   'Values: [${form.fields.values.map((f) => f.value).join(', ')}]',
                 );
               },
             ),
             const SizedBox(height: 24),
-            Text('Errors: ${form.errors}'),
+            Text(key: const Key('form_errors'), 'Errors: ${form.errors}'),
             const SizedBox(height: 24),
             Text('isValid: ${form.isValid}'),
             const SizedBox(height: 24),
