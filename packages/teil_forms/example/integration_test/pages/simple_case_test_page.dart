@@ -1,34 +1,10 @@
-import 'package:example/src/entities/entities.dart';
 import 'package:example/src/pages/pages.dart';
+import 'package:example/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:mocktail/mocktail.dart';
 import 'package:teil_forms/teil_forms.dart';
 
-abstract class ISpyCallback {
-  void call(FormFields<SimpleFormField> fields);
-}
-
-final class SpyCallback extends Mock implements ISpyCallback {}
-
-class SimpleTestFormController extends SimpleFormController {
-  SimpleTestFormController({
-    required super.name,
-    required super.email,
-    required super.company,
-    required super.companyPosition,
-    required super.radioExample,
-    required super.activeProfile,
-    required super.agreeTerms,
-  });
-
-  final onSubmitted = SpyCallback();
-
-  @override
-  Future<void> handleSubmit(BuildContext context) async {
-    onSubmitted.call(fields);
-  }
-}
+import '../mocks/mocks.dart';
 
 class SimpleCaseTestPage {
   final WidgetTester tester;
@@ -106,5 +82,13 @@ class SimpleCaseTestPage {
     for (final value in values) {
       expect(formData, contains(value), reason: 'Value not found in form data: $value');
     }
+  }
+
+  Future<void> assertSelectEnabled(TeilFormField field, {bool enabled = true}) async {
+    final findCompanyPosition = await findFormField(field);
+    expect(
+      tester.widget(findCompanyPosition),
+      isA<SearchFieldExample>().having((e) => e.enabled, 'enabled', enabled),
+    );
   }
 }

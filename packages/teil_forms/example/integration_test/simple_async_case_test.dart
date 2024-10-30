@@ -9,47 +9,24 @@ import 'pages/pages.dart';
 void main() {
   IntegrationTestWidgetsFlutterBinding.ensureInitialized();
 
-  group('Simple case', () {
-    testWidgets('Should submit form values', (tester) async {
+  group('Simple async case', () {
+    testWidgets('Should handle async controller and submit', (tester) async {
       final controller = SimpleTestFormController(
-        name: NameField(null),
-        email: EmailField(null),
-        company: CompanyField(null),
+        name: NameField('Test Person'),
+        email: EmailField('test@test.com'),
+        company: CompanyField(Company(id: '1', value: 'Test Company')),
         companyPosition: CompanyPositionField(null),
         radioExample: RadioExampleField(),
         activeProfile: ActiveProfileField(),
         agreeTerms: AgreeTermsField(),
       );
 
-      final page = SimpleCaseTestPage(tester);
+      final page = SimpleAsyncCaseTestPage(tester);
       await page.pumpPage(controller);
 
-      await page.tapSubmitButton();
-
-      verifyNever(() => controller.onSubmitted.call(any()));
-
-      await page.enterTextField(controller.name, 'Test Person');
-
       expect(controller.name.value, 'Test Person');
-      expect(controller.name.value, controller.name.textController.text);
-
-      await tester.pumpAndSettle(const Duration(seconds: 3));
-      await page.assertValues(['Test Person']);
-
-      await page.enterTextField(controller.email, 'test@test.com');
       expect(controller.email.value, 'test@test.com');
-      await page.assertValues(['test@test.com']);
-
-      controller.email.value = 'manual_changed@test.com';
-      await tester.pump();
-
-      expect(controller.email.value, 'manual_changed@test.com');
-      expect(controller.email.value, controller.email.textController.text);
-      await page.assertValues(['manual_changed@test.com']);
-
-      await page.assertSelectEnabled(controller.companyPosition, enabled: false);
-
-      await page.selectSearchField(controller.company);
+      await page.assertValues(['Test Person', 'test@test.com', 'Test Company']);
 
       await page.assertSelectEnabled(controller.companyPosition);
 
