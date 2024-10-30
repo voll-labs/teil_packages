@@ -1,6 +1,6 @@
 part of 'form.dart';
 
-/// Mixin that provides focus for a [FormField].
+/// Mixin that provides focus functionality to [FormField].
 @optionalTypeArgs
 mixin FormFieldFocusable<T> on BaseFormField<T> {
   final FocusNode _focusNode = FocusNode();

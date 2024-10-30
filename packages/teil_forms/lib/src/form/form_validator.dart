@@ -3,7 +3,9 @@ part of 'form.dart';
 /// The errors of a form.
 typedef FormErrors = Map<FieldKey, String>;
 
-/// Mixin that provides validation for a [FormController].
+/// Mixin that provides [FormController] validation functionality.
+///
+/// - Should be used with [FormFieldValidator] to validate the fields.
 mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
   /// The validation mode of the [FormController].
   FieldValidationMode get validationMode => FieldValidationMode.onSubmit;
@@ -95,7 +97,9 @@ mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
   }
 }
 
-/// Mixin that provides validation for a form field.
+/// Mixin that provides validation for a [BaseFormField].
+///
+/// - Can be used with [FormFieldFocusable] to focus on the field when it has an error.
 @optionalTypeArgs
 mixin FormFieldValidator<T> on BaseFormField<T> {
   bool _isValidating = false;

@@ -10,9 +10,11 @@ enum FieldValidationMode {
 
   /// Whether the field should be validated at the given [location].
   bool shouldValidate(FieldValidationMode location) {
-    if (location == onSubmit && this == onSubmit) return true;
-    if (location == onChanged && this == onChanged) return true;
-
-    return false;
+    switch (this) {
+      case FieldValidationMode.onSubmit:
+        return location == onSubmit;
+      case FieldValidationMode.onChanged:
+        return location == onChanged || location == onSubmit;
+    }
   }
 }

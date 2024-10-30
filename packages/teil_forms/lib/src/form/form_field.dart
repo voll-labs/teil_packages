@@ -8,6 +8,7 @@ typedef FieldKey = String;
 abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnosticable {
   /// The initial value of the field.
   @protected
+  @visibleForTesting
   T initialValue;
 
   /// Create a form field.

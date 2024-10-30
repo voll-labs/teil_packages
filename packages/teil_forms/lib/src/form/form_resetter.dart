@@ -1,6 +1,8 @@
 part of 'form.dart';
 
-/// Mixin that provides a method to reset a form field.
+/// Mixin that provides [FormController] reset functionality.
+///
+/// - Should be used with [FormFieldResetter] to reset the field state.
 mixin FormResetter<F extends FormFieldResetter> on FormController<F> {
   /// Resets the field state.
   ///
@@ -36,7 +38,10 @@ mixin FormResetter<F extends FormFieldResetter> on FormController<F> {
   }
 }
 
-/// Mixin that provides a method to reset a form field.
+/// Mixin that provides [FormField] reset functionality.
+///
+/// - Can be used with [FormFieldValidator] to reset the field validation state.
+/// - Can be used with [FormFieldDirty] to reset the field dirty state.
 @optionalTypeArgs
 mixin FormFieldResetter<T> on BaseFormField<T> {
   /// Resets the field state.

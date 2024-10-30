@@ -35,13 +35,15 @@ abstract class FormController<F extends BaseFormField> extends TransitionNotifie
   /// Cast the [FormController] to a specific type.
   @protected
   C call<C extends FormController>() {
-    assert(this is C, 'FormController is not of type $C');
+    assert(this is C, 'FormController of type $runtimeType cannot be cast to $C');
     return this as C;
   }
 
   /// Try to cast the [FormController] to a specific type.
   @protected
-  C? tryCast<C extends FormController>() => this is C ? call<C>() : null;
+  C? tryCast<C extends FormController>() {
+    return this is C ? call<C>() : null;
+  }
 
   @override
   void dispose() {

@@ -1,6 +1,8 @@
 part of 'form.dart';
 
-/// Mixin that provides submission for a [FormValidator].
+/// Mixin that provides [FormController] submission functionality.
+///
+/// Can be used with [FormValidator] to handle form validation.
 mixin FormSubmission<F extends BaseFormField> on FormController<F> {
   bool _isSubmitting = false;
 

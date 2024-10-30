@@ -7,23 +7,22 @@ import 'package:flutter/foundation.dart';
 /// See also: [TransitionNotifier], [ValueTransitionNotifier]
 typedef TransitionCallback<T> = FutureOr<T> Function();
 
-/// [ChangeNotifier] that allows transitions to be started.
-///
-/// See also: [Transition]
+/// [ChangeNotifier] that allows [Transition] to be started.
 class TransitionNotifier extends ChangeNotifier with Transition {
   /// Creates a [TransitionNotifier].
   TransitionNotifier();
 }
 
-/// [ValueNotifier] that allows transitions to be started.
-///
-/// See also: [Transition]
+/// [ValueNotifier] that allows [Transition] to be started.
 class ValueTransitionNotifier<T> extends ValueNotifier<T> with Transition {
   /// Creates a [ValueTransitionNotifier].
   ValueTransitionNotifier(super.value);
 }
 
 /// Mixin that gives a [ChangeNotifier] the ability to start transitions.
+///
+/// When a transition is started, the [ChangeNotifier] will not notify listeners
+/// until the transition is complete.
 mixin Transition on ChangeNotifier {
   int _transitions = 0;
 
