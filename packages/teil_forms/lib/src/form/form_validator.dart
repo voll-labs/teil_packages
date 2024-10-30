@@ -6,8 +6,11 @@ typedef FormErrors = Map<FieldKey, String>;
 /// Mixin that provides [FormController] validation functionality.
 ///
 /// - Should be used with [FormFieldValidator] to validate the fields.
+/// - Can be used with [FormFieldFocusable] to focus on the field when it has an error.
 mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
   /// The validation mode of the [FormController].
+  ///
+  /// Defaults to [FieldValidationMode.onSubmit].
   FieldValidationMode get validationMode => FieldValidationMode.onSubmit;
 
   bool _isValidating = false;
@@ -99,6 +102,7 @@ mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
 
 /// Mixin that provides validation for a [BaseFormField].
 ///
+/// - Should be used with [FormValidator] to validate the field.
 /// - Can be used with [FormFieldFocusable] to focus on the field when it has an error.
 @optionalTypeArgs
 mixin FormFieldValidator<T> on BaseFormField<T> {
