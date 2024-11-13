@@ -54,7 +54,8 @@ class FormBuilder<C extends FormController> extends StatefulWidget {
 }
 
 /// A state of [FormBuilder].
-class FormBuilderState<C extends FormController> extends State<FormBuilder<C>> {
+class FormBuilderState<C extends FormController> extends State<FormBuilder<C>>
+    with AutomaticKeepAliveClientMixin {
   late Completer<C> _controllerFuture;
   C? _controller;
 
@@ -68,6 +69,9 @@ class FormBuilderState<C extends FormController> extends State<FormBuilder<C>> {
   bool get isReady => _controller != null;
 
   @override
+  bool get wantKeepAlive => isReady;
+
+  @override
   void initState() {
     _controllerFuture = Completer<C>()
       ..complete(widget.controller())
@@ -77,6 +81,8 @@ class FormBuilderState<C extends FormController> extends State<FormBuilder<C>> {
 
   @override
   Widget build(BuildContext context) {
+    super.build(context);
+
     return FutureBuilder(
       future: _controllerFuture.future,
       builder: (context, snapshot) {
