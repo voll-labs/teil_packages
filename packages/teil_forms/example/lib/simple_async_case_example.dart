@@ -1,5 +1,4 @@
-import 'package:example/src/entities/entities.dart';
-import 'package:example/src/pages/pages.dart';
+import 'package:example/example.dart';
 import 'package:faker/faker.dart' show faker;
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';

@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:example/src/entities/entities.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +27,7 @@ final class EmailField extends SimpleFormField<String?> with ControlledTextField
   EmailField(super.value);
 }
 
-final class CompanyField extends SimpleFormField<Company?> {
+final class CompanyField extends SimpleFormField<KeyValue?> {
   CompanyField(super.value);
 
   @override
@@ -38,7 +37,7 @@ final class CompanyField extends SimpleFormField<Company?> {
   }
 }
 
-final class CompanyPositionField extends SimpleFormField<CompanyPosition?> {
+final class CompanyPositionField extends SimpleFormField<KeyValue?> {
   CompanyPositionField(super.value);
 
   @override
@@ -76,58 +75,4 @@ final class AgreeTermsField extends SimpleFormField<bool> {
     if (!value) return 'You must agree to the terms';
     return null;
   }
-}
-
-class SimpleFormController extends TeilFormController<SimpleFormField> {
-  final NameField name;
-
-  final EmailField email;
-
-  final CompanyField company;
-
-  final CompanyPositionField companyPosition;
-
-  final RadioExampleField radioExample;
-
-  final ActiveProfileField activeProfile;
-
-  final AgreeTermsField agreeTerms;
-
-  SimpleFormController({
-    required this.name,
-    required this.email,
-    required this.company,
-    required this.companyPosition,
-    required this.radioExample,
-    required this.activeProfile,
-    required this.agreeTerms,
-  });
-
-  @override
-  Future<void> handleSubmit(BuildContext context) async {
-    log('Submit: [${fields.values}]');
-
-    final scaffolMessenger = ScaffoldMessenger.of(context);
-    if (!isDirty) {
-      scaffolMessenger.showSnackBar(const SnackBar(content: Text('Form did not change')));
-      return;
-    }
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Form submitted')));
-  }
-}
-
-class SimpleAsyncFormController extends SimpleFormController {
-  SimpleAsyncFormController({
-    required super.name,
-    required super.email,
-    required super.company,
-    required super.companyPosition,
-    required super.radioExample,
-    required super.activeProfile,
-    required super.agreeTerms,
-  });
-
-  @override
-  FieldValidationMode get validationMode => FieldValidationMode.onChanged;
 }

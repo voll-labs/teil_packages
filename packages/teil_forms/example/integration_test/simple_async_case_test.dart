@@ -14,7 +14,7 @@ void main() {
       final controller = SimpleTestFormController(
         name: NameField('Test Person'),
         email: EmailField('test@test.com'),
-        company: CompanyField(Company(id: '1', value: 'Test Company')),
+        company: CompanyField(const KeyValue(id: '1', value: 'Test Company')),
         companyPosition: CompanyPositionField(null),
         radioExample: RadioExampleField(),
         activeProfile: ActiveProfileField(),

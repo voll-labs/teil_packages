@@ -1,5 +1,4 @@
-import 'package:example/src/entities/entities.dart';
-import 'package:example/src/pages/pages.dart';
+import 'package:example/example.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 
@@ -16,6 +15,7 @@ class _SimpleCaseExample extends StatefulWidget {
 
 class _SimpleCaseExampleState extends State<_SimpleCaseExample> {
   late SimpleFormController _controller;
+
   @override
   void initState() {
     _controller = SimpleFormController(

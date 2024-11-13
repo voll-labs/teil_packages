@@ -1,4 +1,6 @@
+import 'package:example/src/controllers/controllers.dart';
 import 'package:example/src/entities/entities.dart';
+import 'package:example/src/mocks/mocks.dart';
 import 'package:example/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
@@ -36,7 +38,7 @@ class SimpleCasePage extends StatelessWidget {
                   return SearchFieldExample(
                     key: Key(field.key),
                     label: 'Company',
-                    suggestionsFetcher: (controller, field) => Company.fetchList(),
+                    suggestionsFetcher: (controller, field) => fetchCompanies(),
                   );
                 },
               ),
@@ -51,7 +53,7 @@ class SimpleCasePage extends StatelessWidget {
                         key: Key(field.key),
                         label: 'Company position',
                         enabled: company != null,
-                        suggestionsFetcher: (controller, field) => CompanyPosition.fetchList(),
+                        suggestionsFetcher: (controller, field) => fetchCompanyPostions(),
                       );
                     },
                   );
