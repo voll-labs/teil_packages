@@ -14,8 +14,9 @@ mixin ControlledTextField on BaseFormField<String?> {
   }
 
   void _controllerListener() {
-    if (value != _controller!.text) {
-      value = _controller!.text;
+    final textValue = _controller!.text.isNotEmpty ? _controller!.text : null;
+    if (value != textValue) {
+      value = textValue;
     }
   }
 

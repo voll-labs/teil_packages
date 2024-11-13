@@ -35,20 +35,7 @@ class QueryParamsFormController extends SimpleFormController {
     });
   }
 
-  @override
-  @protected
-  Future<void> handleSubmit(BuildContext context) async {
-    dev.log('Submit: [${fields.values}]');
-
-    if (!isDirty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Form did not change')),
-      );
-      return;
-    }
-
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Url updated')));
-
+  void _dispatchQueryParams(BuildContext context) {
     final queryParams = QueryParamsExampleModel(
       name: name.value,
       email: email.value,
@@ -63,7 +50,22 @@ class QueryParamsFormController extends SimpleFormController {
     final newRoute = route.replace(queryParameters: {'filter': queryParams.toBase64()});
     dev.log('New Uri: $newRoute');
 
-    // ignore: inference_failure_on_function_invocation
+    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Url updated')));
     unawaited(GoRouter.of(context).replace(newRoute.toString()));
+  }
+
+  @override
+  @protected
+  Future<void> handleSubmit(BuildContext context) async {
+    dev.log('Submit: [${fields.values}]');
+
+    if (!isDirty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Form did not change')),
+      );
+      return;
+    }
+
+    _dispatchQueryParams(context);
   }
 }

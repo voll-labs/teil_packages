@@ -91,6 +91,12 @@ class SimpleCasePage extends StatelessWidget {
           children: [
             const Spacer(),
             TextButton(
+              key: const Key('clear_button'),
+              onPressed: controller.clear,
+              child: const Text('Clear'),
+            ),
+            const SizedBox(width: 24),
+            TextButton(
               key: const Key('reset_button'),
               onPressed: controller.reset,
               child: const Text('Reset'),

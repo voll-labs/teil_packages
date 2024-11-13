@@ -49,6 +49,42 @@ void main() {
       expect(controller.email.value, controller.email.initialValue);
       expect(emailTextField.controller!.text, 'initial@test.com');
     });
+
+    testWidgets('When clear form, should clear all fields values', (tester) async {
+      final controller = _FormController(
+        name: _Field(''),
+        email: _ControllerField('initial@test.com'),
+      );
+
+      await tester.pumpWidget(_FormApp(controller: controller));
+      await tester.pumpAndSettle();
+
+      final findNameField = find.byKey(Key(controller.name.key));
+      await tester.enterText(findNameField, 'Test Person');
+      expect(controller.name.value, 'Test Person');
+      expect(controller.name.initialValue, '');
+
+      final findEmailField = find.byKey(Key(controller.email.key));
+      await tester.enterText(findEmailField, 'changed@test.com');
+      expect(controller.email.value, 'changed@test.com');
+      expect(controller.email.initialValue, 'initial@test.com');
+
+      await tester.tap(find.text('Clear'));
+      await tester.pumpAndSettle();
+
+      expect(
+        controller.name.value,
+        controller.name.initialValue,
+        reason: 'Should set the value to initial value since it is not nullable.',
+      );
+
+      expect(controller.email.value, isNull);
+      expect(
+        controller.email.initialValue,
+        'initial@test.com',
+        reason: "Shouldn't change the initial value.",
+      );
+    });
   });
 }
 
@@ -103,6 +139,10 @@ class _FormApp extends StatelessWidget {
                       decoration: const InputDecoration(labelText: 'Email'),
                     );
                   },
+                ),
+                ElevatedButton(
+                  onPressed: () => controller.clear(),
+                  child: const Text('Clear'),
                 ),
                 ElevatedButton(
                   onPressed: () => controller.reset(),
