@@ -15,8 +15,10 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
 
   Future<bool> _validate(BuildContext context) async {
     final form = tryCast<FormValidator>();
-    await form?.validate(context);
-    return form?.isValid ?? true;
+    if (form == null) return true;
+
+    await form.validate(context);
+    return form.isValid;
   }
 
   /// Submit the [FormController] and return `true` if the form is valid.

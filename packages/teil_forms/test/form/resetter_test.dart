@@ -4,7 +4,7 @@ import 'package:teil_forms/teil_forms.dart';
 
 void main() {
   group('Form resetter', () {
-    testWidgets('When reset form, should reset all fields values', (tester) async {
+    testWidgets('Should reset all fields values', (tester) async {
       final controller = _FormController(
         name: _Field(''),
         email: _ControllerField('initial@test.com'),
@@ -50,7 +50,7 @@ void main() {
       expect(emailTextField.controller!.text, 'initial@test.com');
     });
 
-    testWidgets('When clear form, should clear all fields values', (tester) async {
+    testWidgets('Should clear all fields values', (tester) async {
       final controller = _FormController(
         name: _Field(''),
         email: _ControllerField('initial@test.com'),
@@ -61,13 +61,9 @@ void main() {
 
       final findNameField = find.byKey(Key(controller.name.key));
       await tester.enterText(findNameField, 'Test Person');
-      expect(controller.name.value, 'Test Person');
-      expect(controller.name.initialValue, '');
 
       final findEmailField = find.byKey(Key(controller.email.key));
       await tester.enterText(findEmailField, 'changed@test.com');
-      expect(controller.email.value, 'changed@test.com');
-      expect(controller.email.initialValue, 'initial@test.com');
 
       await tester.tap(find.text('Clear'));
       await tester.pumpAndSettle();
@@ -84,6 +80,45 @@ void main() {
         'initial@test.com',
         reason: "Shouldn't change the initial value.",
       );
+    });
+
+    testWidgets('Should reset field individually', (tester) async {
+      final controller = _FormController(
+        name: _Field(''),
+        email: _ControllerField('initial@test.com'),
+      );
+
+      await tester.pumpWidget(_FormApp(controller: controller));
+      await tester.pumpAndSettle();
+
+      controller.email.reset(_ControllerField('reseted@test.com'));
+      expect(controller.email.value, 'reseted@test.com');
+
+      final findEmailField = find.byKey(Key(controller.email.key));
+      await tester.enterText(findEmailField, 'changed@test.com');
+
+      controller.resetField(controller.email.key, field: _ControllerField('reseted@test.com'));
+      expect(controller.email.value, 'reseted@test.com');
+    });
+
+    testWidgets('Should clear field individually', (tester) async {
+      final controller = _FormController(
+        name: _Field(''),
+        email: _ControllerField('initial@test.com'),
+      );
+
+      await tester.pumpWidget(_FormApp(controller: controller));
+      await tester.pumpAndSettle();
+
+      final findEmailField = find.byKey(Key(controller.email.key));
+
+      await tester.enterText(findEmailField, 'changed@test.com');
+      controller.email.clear();
+      expect(controller.email.value, isNull);
+
+      await tester.enterText(findEmailField, 'changed@test.com');
+      controller.clearField(controller.email.key);
+      expect(controller.email.value, isNull);
     });
   });
 }

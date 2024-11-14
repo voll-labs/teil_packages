@@ -5,7 +5,7 @@ import 'package:teil_forms/teil_forms.dart';
 
 void main() {
   group('Form focusable', () {
-    testWidgets('When request focus, should focus on field', (tester) async {
+    testWidgets('Should focus on field', (tester) async {
       final controller = _FormController(
         name: _Field(''),
         email: _Field(null),
