@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:teil_forms/src/form/form.dart';
 import 'package:teil_forms/src/widgets/widgets.dart';
@@ -78,6 +79,14 @@ class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
         builder: (context, _, __) => widget.builder(context, _formField),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty('field', _formField))
+      ..add(DiagnosticsProperty('field_registered', _registered));
   }
 }
 

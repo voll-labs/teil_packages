@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/src/form/form.dart';
 
@@ -99,6 +100,12 @@ class FormBuilderState<C extends FormController> extends State<FormBuilder<C>>
         );
       },
     );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty('controller', controller));
   }
 }
 
