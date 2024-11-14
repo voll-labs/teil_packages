@@ -63,6 +63,6 @@ abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnost
       ..add(DiagnosticsProperty('initialValue', initialValue))
       ..add(DiagnosticsProperty('value', value))
       ..add(DiagnosticsProperty('bound', bound))
-      ..add(DiagnosticsProperty('context', context));
+      ..add(DiagnosticsProperty('context', _context));
   }
 }

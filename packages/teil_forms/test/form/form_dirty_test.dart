@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:teil_forms/teil_forms.dart';
@@ -52,6 +53,22 @@ void main() {
 
       expect(controller.isDirty, false);
       expect(controller.name.isDirty, false);
+    });
+
+    test('Should build FormDirty debugFillProperties', () async {
+      final builder = DiagnosticPropertiesBuilder();
+      _FormController(name: _Field(''), email: _Field(null)).debugFillProperties(builder);
+
+      final description = builder.properties.map((node) => node.name);
+      expect(description, containsAll(['isDirty', 'dirtyFields']));
+    });
+
+    test('Should build FormFieldDirty debugFillProperties', () async {
+      final builder = DiagnosticPropertiesBuilder();
+      _Field(null).debugFillProperties(builder);
+
+      final description = builder.properties.map((node) => node.name);
+      expect(description, containsAll(['isDirty']));
     });
   });
 }

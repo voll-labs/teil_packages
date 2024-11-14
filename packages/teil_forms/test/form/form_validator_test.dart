@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart' hide FormFieldValidator;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:teil_forms/teil_forms.dart';
@@ -171,6 +172,25 @@ void main() {
 
         expect(controller.name.errorText, 'Value is too short');
       });
+    });
+
+    test('Should build FormValidator debugFillProperties', () async {
+      final builder = DiagnosticPropertiesBuilder();
+      _FormController(
+        name: _ValidatedField(null),
+        email: _Field(null),
+      ).debugFillProperties(builder);
+
+      final description = builder.properties.map((node) => node.name);
+      expect(description, containsAll(['isValidating', 'validationMode', 'errors', 'isValid']));
+    });
+
+    test('Should build FormFieldValidator debugFillProperties', () async {
+      final builder = DiagnosticPropertiesBuilder();
+      _Field(null).debugFillProperties(builder);
+
+      final description = builder.properties.map((node) => node.name);
+      expect(description, containsAll(['isValidating', 'errorText']));
     });
   });
 }

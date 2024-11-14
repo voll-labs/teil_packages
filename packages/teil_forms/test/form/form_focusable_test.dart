@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:teil_forms/teil_forms.dart';
@@ -39,6 +40,14 @@ void main() {
       );
 
       expect(emailField.focusNode!.hasFocus, true);
+    });
+
+    test('Should build FormFieldFocusable debugFillProperties', () async {
+      final builder = DiagnosticPropertiesBuilder();
+      _Field(null).debugFillProperties(builder);
+
+      final description = builder.properties.map((node) => node.name);
+      expect(description, containsAll(['hasFocus']));
     });
   });
 }

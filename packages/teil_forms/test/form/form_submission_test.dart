@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
@@ -25,6 +26,14 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       verify(spy.call).called(1);
+    });
+
+    test('Should build FormSubmission debugFillProperties', () async {
+      final builder = DiagnosticPropertiesBuilder();
+      _FormController(name: _Field('')).debugFillProperties(builder);
+
+      final description = builder.properties.map((node) => node.name);
+      expect(description, containsAll(['isSubmitting']));
     });
   });
 }
