@@ -138,6 +138,7 @@ mixin FormFieldValidator<T> on BaseFormField<T> {
 
   /// Called by the [FormController] to validate the field.
   @protected
+  @visibleForTesting
   FutureOr<bool> validate() async {
     final field = await context<FormValidator>().validateField(key);
     field?.tryCast<FormFieldFocusable>()?.requestFocus();
@@ -153,6 +154,7 @@ mixin FormFieldValidator<T> on BaseFormField<T> {
 
   /// Called by the [FormController] to set the error message.
   @protected
+  @visibleForTesting
   void setError(String? error) => context<FormValidator>().setFieldError(key, error);
 
   @override
