@@ -4,20 +4,13 @@ part of 'form.dart';
 ///
 /// - Should be used with [FormFieldResetter] to reset the field state.
 mixin FormResetter<F extends FormFieldResetter> on FormController<F> {
-  /// Reset the field state.
+  /// Reset the field state of the given [key].
   ///
   /// If [field] is provided, the field will be reset to its value.
-  ///
-  /// If [FieldKey] is provided, the field with the given key will be reset to its initial value.
-  void resetField({FieldKey? key, F? field}) {
-    assert(key != null || field != null, 'Either key or field must be provided.');
-    final fieldKey = key ?? field?.key;
-
-    if (fieldKey != null) {
-      final current = fields[fieldKey];
-      assert(current != null, 'Field with key $fieldKey not found.');
-      return current?.reset(field);
-    }
+  void resetField(FieldKey key, {F? field}) {
+    final current = fields[key];
+    assert(current != null, 'Field with key $key not found.');
+    return current?.reset(field);
   }
 
   /// Resets all fields state.
@@ -27,7 +20,7 @@ mixin FormResetter<F extends FormFieldResetter> on FormController<F> {
   void reset({Set<F>? fields}) {
     final fieldsToReset = fields ?? _fields.values;
     for (final field in fieldsToReset) {
-      resetField(key: field.key);
+      resetField(field.key);
     }
   }
 
