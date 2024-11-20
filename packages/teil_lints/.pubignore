@@ -1,8 +1,0 @@
-# See https://dart.dev/tools/pub/publishing#what-files-are-published
-
-/coverage/*
-/doc/*
-/metrics/*
-/tool/*
-/website/*
-/codecov.yaml
