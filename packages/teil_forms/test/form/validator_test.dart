@@ -216,7 +216,7 @@ class _ValidatedField<T> extends _Field<T?> {
   _ValidatedField(super.value);
 
   @override
-  Future<String?> handleValidate() {
+  Future<String?> onValidate() {
     return Future.delayed(const Duration(seconds: 1), () {
       final value = this.value;
       if (value == null) return 'Value is required';

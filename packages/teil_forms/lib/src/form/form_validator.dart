@@ -121,14 +121,14 @@ mixin FormFieldValidator<T> on BaseFormField<T> {
 
   /// Validate the field and return an error message if the field is invalid.
   @protected
-  FutureOr<String?> handleValidate() => null;
+  FutureOr<String?> onValidate() => null;
 
   FutureOr<void> _validate() async {
     _isValidating = true;
     notifyListeners();
 
     return startTransition(() async {
-      final error = await handleValidate();
+      final error = await onValidate();
       _setError(error);
 
       _isValidating = false;

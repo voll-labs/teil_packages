@@ -6,7 +6,7 @@ import 'package:teil_forms/teil_forms.dart';
 
 void main() {
   group('Form submission', () {
-    testWidgets('When submit form, should call [controller.handleSubmit]', (tester) async {
+    testWidgets('When submit form, should call [controller.onSubmit]', (tester) async {
       final controller = _FormController(name: _Field(''));
 
       final spy = _SpyCallback();
@@ -51,7 +51,7 @@ class _FormController<F extends _Field> extends FormController<F> with FormSubmi
 
   @override
   @protected
-  Future<void> handleSubmit(BuildContext context) {
+  Future<void> onSubmit(BuildContext context) {
     return Future.delayed(const Duration(seconds: 1), () {
       _onSubmit.call();
     });

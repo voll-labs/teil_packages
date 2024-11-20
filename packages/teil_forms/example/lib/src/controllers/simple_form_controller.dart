@@ -32,7 +32,7 @@ class SimpleFormController extends TeilFormController<SimpleFormField> {
 
   @override
   @protected
-  Future<void> handleSubmit(BuildContext context) async {
+  Future<void> onSubmit(BuildContext context) async {
     dev.log('Submit: [${fields.values}]');
 
     if (!isDirty) {

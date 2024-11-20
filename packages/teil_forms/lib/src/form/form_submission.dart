@@ -11,7 +11,7 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
 
   /// Handle the form submission.
   @protected
-  Future<void> handleSubmit(BuildContext context);
+  Future<void> onSubmit(BuildContext context);
 
   Future<bool> _validate(BuildContext context) async {
     final form = tryCast<FormValidator>();
@@ -31,7 +31,7 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
     if (!context.mounted) return;
 
     return startTransition(() async {
-      if (isValid) await handleSubmit(context);
+      if (isValid) await onSubmit(context);
 
       _isSubmitting = false;
       notifyListeners();

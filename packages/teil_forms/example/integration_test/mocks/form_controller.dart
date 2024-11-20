@@ -22,7 +22,7 @@ class SimpleTestFormController extends SimpleFormController {
   final onSubmitted = _SpyCallback();
 
   @override
-  Future<void> handleSubmit(BuildContext context) async {
+  Future<void> onSubmit(BuildContext context) async {
     onSubmitted.call(fields);
   }
 }

@@ -67,7 +67,7 @@ class _FormController<F extends _Field> extends FormController<F>
 
   @override
   @protected
-  Future<void> handleSubmit(BuildContext context) {
+  Future<void> onSubmit(BuildContext context) {
     return Future.delayed(const Duration(seconds: 1), () {
       _onSubmit.call();
     });
@@ -79,7 +79,7 @@ class _Field<T> extends BaseFormField<T> with FormFieldValidator<T> {
   _Field(super.value);
 
   @override
-  Future<String?> handleValidate() {
+  Future<String?> onValidate() {
     return Future.delayed(const Duration(seconds: 1), () {
       final value = this.value;
       if (value == null) return 'Value is required';

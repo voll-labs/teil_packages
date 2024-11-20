@@ -51,7 +51,7 @@ class _TextField extends _Field<String?> {
   _TextField(super.value);
 
   @override
-  String? handleValidate() {
+  String? onValidate() {
     final value = this.value;
     if (value == null) return 'Value is required';
     if (value.length < 3) return 'Value is too short';

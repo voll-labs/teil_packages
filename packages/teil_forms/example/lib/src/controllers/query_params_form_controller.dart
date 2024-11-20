@@ -56,7 +56,7 @@ class QueryParamsFormController extends SimpleFormController {
 
   @override
   @protected
-  Future<void> handleSubmit(BuildContext context) async {
+  Future<void> onSubmit(BuildContext context) async {
     dev.log('Submit: [${fields.values}]');
 
     if (!isDirty) {
