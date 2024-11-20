@@ -23,7 +23,7 @@ class TextFieldExample extends StatelessWidget {
       controller = field<ControlledTextField>().textController;
     }
 
-    return TextFormField(
+    return TextField(
       controller: controller,
       focusNode: field.focusNode,
       decoration: InputDecoration(labelText: label, errorText: field.errorText, suffix: suffix),

@@ -1,16 +1,9 @@
-# example
+# Teil Forms Examples
 
-A new Flutter project.
+This package contains examples for `Teil Forms`.
 
-## Getting Started
+## Examples
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+- [Simple Form](./lib/simple_case_example.dart): Simple basic form example.
+- [Async Load](./lib/simple_async_case_example.dart): Form with async fetch example.
+- [Query Params](./lib/query_params_case_example.dart): Form with query params example.
