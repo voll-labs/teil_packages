@@ -57,7 +57,10 @@ abstract class FormController<F extends BaseFormField> extends TransitionNotifie
 
   @override
   void dispose() {
-    _fields.clear();
+    for (final field in _fields.values) {
+      field.dispose();
+      _fields.remove(field.key);
+    }
     super.dispose();
   }
 
