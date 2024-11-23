@@ -31,7 +31,7 @@ jobs:
       - name: Run tests
         run: melos test
 
-  test:integration:
+  test-integration:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4

@@ -5,7 +5,6 @@ on:
     types:
       - created
   schedule:
-    # Scheduled at 15 minutes after midnight UTC every day
     - cron: "15 0 * * *"
 
 jobs:
@@ -16,8 +15,8 @@ jobs:
       - uses: lee-dohm/no-response@v0.5.0
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          daysUntilClose: 7 # Number of days of inactivity before an issue is closed for lack of response
-          responseRequiredLabel: "awaiting info" # Label requiring a response
+          daysUntilClose: 7
+          responseRequiredLabel: "awaiting info"
           closeComment: >
             Without additional information, we are unfortunately not sure how to resolve this issue.
             We are therefore reluctantly going to close this issue for now. Please don't hesitate to
