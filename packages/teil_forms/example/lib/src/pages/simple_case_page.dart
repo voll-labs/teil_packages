@@ -18,68 +18,33 @@ class SimpleCasePage extends StatelessWidget {
           padding: const EdgeInsets.all(12),
           child: Column(
             children: [
-              FieldBuilder<TeilFormField<String?>>(
-                field: controller.name,
-                builder: (context, field) {
-                  return TextFieldExample(key: Key(field.key), label: 'Name');
-                },
-              ),
+              TextFieldExample(field: controller.name, label: 'Email'),
               const SizedBox(height: 24),
-              FieldBuilder<TeilFormField<String?>>(
-                field: controller.email,
-                builder: (context, field) {
-                  return TextFieldExample(key: Key(field.key), label: 'Email');
-                },
-              ),
+              TextFieldExample(field: controller.email, label: 'Email'),
               const SizedBox(height: 24),
-              FieldBuilder<TeilFormField<KeyValue?>>(
+              SearchFieldExample(
                 field: controller.company,
-                builder: (context, field) {
+                label: 'Company',
+                suggestionsFetcher: (controller, field) => fetchCompanies(),
+              ),
+              const SizedBox(height: 24),
+              FieldConsumer(
+                field: controller.company,
+                builder: (context, company) {
                   return SearchFieldExample(
-                    key: Key(field.key),
-                    label: 'Company',
-                    suggestionsFetcher: (controller, field) => fetchCompanies(),
+                    field: controller.companyPosition,
+                    label: 'Company position',
+                    enabled: company.value != null,
+                    suggestionsFetcher: (controller, field) => fetchCompanyPostions(),
                   );
                 },
               ),
               const SizedBox(height: 24),
-              FieldBuilder<TeilFormField<KeyValue?>>(
-                field: controller.companyPosition,
-                builder: (context, field) {
-                  return ValueListenableBuilder(
-                    valueListenable: controller.company,
-                    builder: (context, company, __) {
-                      return SearchFieldExample(
-                        key: Key(field.key),
-                        label: 'Company position',
-                        enabled: company != null,
-                        suggestionsFetcher: (controller, field) => fetchCompanyPostions(),
-                      );
-                    },
-                  );
-                },
-              ),
+              RadioFieldExample(field: controller.radioExample, values: RadioExampleValue.values),
               const SizedBox(height: 24),
-              FieldBuilder<TeilFormField<RadioExampleValue>>(
-                field: controller.radioExample,
-                builder: (context, field) {
-                  return RadioFieldExample(key: Key(field.key), values: RadioExampleValue.values);
-                },
-              ),
+              SwitchFieldExample(field: controller.activeProfile, label: 'Active profile'),
               const SizedBox(height: 24),
-              FieldBuilder<TeilFormField<bool>>(
-                field: controller.activeProfile,
-                builder: (context, field) {
-                  return SwitchFieldExample(key: Key(field.key), label: 'Active profile');
-                },
-              ),
-              const SizedBox(height: 24),
-              FieldBuilder<TeilFormField<bool>>(
-                field: controller.agreeTerms,
-                builder: (context, field) {
-                  return CheckboxFieldExample(key: Key(field.key), label: 'Agree to terms');
-                },
-              ),
+              CheckboxFieldExample(field: controller.agreeTerms, label: 'Agree to terms'),
               const SizedBox(height: 24),
               const CardFormDetail(),
             ],
