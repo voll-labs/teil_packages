@@ -1,14 +1,3 @@
-class KeyValue {
-  final String id;
-
-  final String value;
-
-  const KeyValue({required this.id, required this.value});
-
-  @override
-  String toString() => value;
-}
-
 enum RadioExampleValue {
   one,
   two,

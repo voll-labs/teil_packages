@@ -1,7 +1,6 @@
+import 'package:example/common/common.dart';
 import 'package:example/src/controllers/controllers.dart';
 import 'package:example/src/entities/entities.dart';
-import 'package:example/src/mocks/mocks.dart';
-import 'package:example/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 
@@ -25,7 +24,8 @@ class SimpleCasePage extends StatelessWidget {
               SearchFieldExample(
                 field: controller.company,
                 label: 'Company',
-                suggestionsFetcher: (controller, field) => fetchCompanies(),
+                suggestionsFetcher: (controller, field) =>
+                    FakerService.instance.fetchCompanies(),
               ),
               const SizedBox(height: 24),
               FieldConsumer(
@@ -35,16 +35,21 @@ class SimpleCasePage extends StatelessWidget {
                     field: controller.companyPosition,
                     label: 'Company position',
                     enabled: company.value != null,
-                    suggestionsFetcher: (controller, field) => fetchCompanyPostions(),
+                    suggestionsFetcher: (controller, field) =>
+                        FakerService.instance.fetchCompanies(),
                   );
                 },
               ),
               const SizedBox(height: 24),
-              RadioFieldExample(field: controller.radioExample, values: RadioExampleValue.values),
+              RadioFieldExample(
+                  field: controller.radioExample,
+                  values: RadioExampleValue.values),
               const SizedBox(height: 24),
-              SwitchFieldExample(field: controller.activeProfile, label: 'Active profile'),
+              SwitchFieldExample(
+                  field: controller.activeProfile, label: 'Active profile'),
               const SizedBox(height: 24),
-              CheckboxFieldExample(field: controller.agreeTerms, label: 'Agree to terms'),
+              CheckboxFieldExample(
+                  field: controller.agreeTerms, label: 'Agree to terms'),
               const SizedBox(height: 24),
               const CardFormDetail(),
             ],
@@ -69,7 +74,8 @@ class SimpleCasePage extends StatelessWidget {
             const SizedBox(width: 24),
             FilledButton(
               key: const Key('submit_button'),
-              onPressed: !controller.isSubmitting ? () => controller.submit(context) : null,
+              onPressed:
+                  !controller.isSubmitting ? () => controller.submit() : null,
               child: controller.isSubmitting
                   ? const CircularProgressIndicator()
                   : const Text('Submit'),

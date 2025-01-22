@@ -32,17 +32,17 @@ class SimpleFormController extends TeilFormController<SimpleFormField> {
 
   @override
   @protected
-  Future<void> onSubmit(BuildContext context) async {
+  Future<void> didSubmit() async {
     dev.log('Submit: [${fields.values}]');
 
     if (!isDirty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Form did not change')),
-      );
+      // ScaffoldMessenger.of(context).showSnackBar(
+      //   const SnackBar(content: Text('Form did not change')),
+      // );
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Form submitted')));
+    // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Form submitted')));
   }
 }
 

@@ -1,5 +1,5 @@
 import 'package:example/example.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:teil_forms/teil_forms.dart';
@@ -22,7 +22,7 @@ class SimpleTestFormController extends SimpleFormController {
   final onSubmitted = _SpyCallback();
 
   @override
-  Future<void> onSubmit(BuildContext context) async {
+  Future<void> didSubmit() async {
     onSubmitted.call(fields);
   }
 }

@@ -1,5 +1,5 @@
+import 'package:example/common/common.dart';
 import 'package:example/src/pages/pages.dart';
-import 'package:example/src/widgets/widgets.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:teil_forms/teil_forms.dart';
