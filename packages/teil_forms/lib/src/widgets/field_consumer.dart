@@ -15,19 +15,17 @@ typedef FieldWidgetBuilder<F> = Widget Function(BuildContext context, F field);
 /// - The `child` widget is required if `builder` is not provided.
 ///
 /// ```dart
-/// void build(BuildContext context) {
-///   final field = FieldBuilder.of<MyCustomField>(context);
+/// final field = FieldBuilder.of<MyCustomField>(context);
 ///
-///   return FieldConsumer(
-///     field: field,
-///     listener: (field) {
-///       print(field.value);
-///     },
-///     builder: (context, field) {
-///       return Text(field.value);
-///     },
-///   );
-/// }
+/// return FieldConsumer(
+///   field: field,
+///   listener: (field) {
+///     print(field.value);
+///   },
+///   builder: (context, field) {
+///     return Text(field.value);
+///   },
+/// );
 /// ```
 /// {@endtemplate}
 class FieldConsumer<F extends BaseFormField> extends StatefulWidget {

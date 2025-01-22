@@ -216,7 +216,7 @@ class _ValidatedField<T> extends _Field<T?> {
   _ValidatedField(super.value);
 
   @override
-  Future<String?> onValidate() {
+  Future<String?> didValidate() {
     return Future.delayed(const Duration(seconds: 1), () {
       final value = this.value;
       if (value == null) return 'Value is required';
@@ -264,7 +264,7 @@ class _FormApp extends StatelessWidget {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.validate(context),
+                  onPressed: () => controller.validate(),
                   child: controller.isValidating
                       ? const CircularProgressIndicator()
                       : const Text('Validate'),

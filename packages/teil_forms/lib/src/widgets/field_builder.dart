@@ -10,7 +10,7 @@ import 'package:teil_forms/src/widgets/widgets.dart';
 ///
 /// {@endtemplate}
 class FieldBuilder<F extends BaseFormField> extends StatefulWidget {
-  /// The field instance to build.
+  /// The [BaseFormField] instance to build.
   final F field;
 
   /// {@macro field_consumer_builder}

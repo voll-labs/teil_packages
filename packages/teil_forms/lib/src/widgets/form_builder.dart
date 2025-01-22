@@ -2,34 +2,68 @@ import 'dart:async';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:teil_forms/src/form/form.dart';
+import 'package:teil_forms/teil_forms.dart';
 
-/// A key for a [FormBuilder].
+/// Signature for the [GlobalKey] of a [FormBuilder].
 typedef FormBuilderKey<C extends FormController> = GlobalKey<FormBuilderState<C>>;
 
-/// A builder for a form widget.
+/// Signature for the [FormController] `widget.builder` function.
 typedef FormWidgetBuilder<C> = Widget Function(BuildContext context, C controller);
 
-/// A constructor for a [FormController].
+/// Signature for the [FormController] `builder` function.
 typedef FormControllerBuilder<C extends FormController> = FutureOr<C> Function();
 
-/// A form builder.
+/// {@template form_builder_widget}
+/// Base [Widget] to bind [FormController] to the UI tree.
+///
+/// Should be used as the root of the form, and should be the parent of all [FieldBuilder]s.
+///
+/// **The [FormController] instance should be unique.**
+/// {@endtemplate}
 class FormBuilder<C extends FormController> extends StatefulWidget {
-  /// Create a [FormController].
+  /// Create the main instance of the [FormController].
   final FormControllerBuilder<C> controller;
 
-  /// Form builder.
+  /// The [FormWidgetBuilder] which will be called on every `form` notification.
+  /// Should be used as a `builder` for the `form`.
   final FormWidgetBuilder<C> builder;
 
-  /// Loading indicator for asynchronous [FormController].
+  /// Loading indicator for async [FormController].
   final WidgetBuilder? loadingBuilder;
 
+  /// {@macro form_builder_widget}
+  ///
   /// Create a [FormBuilder] with synchronous [FormController].
+  ///
+  /// ```dart
+  /// FormBuilder(
+  ///  controller: MyFormController(),
+  ///  builder: (context, controller) {
+  ///   return Column(
+  ///    children: [
+  ///    ...fields
+  ///   ],
+  /// );
+  /// ```
   factory FormBuilder({required C controller, required FormWidgetBuilder<C> builder, Key? key}) {
     return FormBuilder.async(controller: () => controller, builder: builder, key: key);
   }
 
+  /// {@macro form_builder_widget}
+  ///
   /// Create a [FormBuilder] with asynchronous [FormController].
+  ///
+  /// ```dart
+  /// FormBuilder.async(
+  ///  controller: () async => MyFormController(),
+  ///  loadingBuilder: (context) => const CircularProgressIndicator(),
+  ///  builder: (context, controller) {
+  ///   return Column(
+  ///    children: [
+  ///    ...fields
+  ///   ],
+  /// );
+  /// ```
   const FormBuilder.async({
     required this.controller,
     required this.builder,
@@ -37,17 +71,11 @@ class FormBuilder<C extends FormController> extends StatefulWidget {
     super.key,
   });
 
-  /// Try get the [FormController] of the nearest [FormBuilder] ancestor.
-  static C? maybeOf<C extends FormController>(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<_FormScope>();
-    assert(scope?.notifier != null, 'No FormContext(${C.runtimeType}) found in context.');
-    return scope!.notifier is C ? scope.notifier! as C : null;
-  }
-
   /// Get the [FormController] of the nearest [FormBuilder] ancestor.
   static C of<C extends FormController>(BuildContext context) {
-    final controller = FormBuilder.maybeOf<C>(context);
-    return controller!;
+    final scope = context.dependOnInheritedWidgetOfExactType<_FormScope>();
+    assert(scope?.notifier != null, 'No FormContext(${C.runtimeType}) found in context.');
+    return scope!.notifier! as C;
   }
 
   @override

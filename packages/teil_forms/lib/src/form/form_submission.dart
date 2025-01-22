@@ -11,27 +11,25 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
 
   /// Handle the form submission.
   @protected
-  Future<void> onSubmit(BuildContext context);
+  Future<void> didSubmit() async {}
 
-  Future<bool> _validate(BuildContext context) async {
+  Future<bool> _validate() async {
     final form = tryCast<FormValidator>();
     if (form == null) return true;
 
-    await form.validate(context);
+    await form.validate();
     return form.isValid;
   }
 
   /// Submit the [FormController] and return `true` if the form is valid.
-  Future<void> submit(BuildContext context) async {
+  Future<void> submit() async {
     if (isSubmitting) return;
     _isSubmitting = true;
     notifyListeners();
 
-    final isValid = await _validate(context);
-    if (!context.mounted) return;
-
+    final isValid = await _validate();
     return startTransition(() async {
-      if (isValid) await onSubmit(context);
+      if (isValid) await didSubmit();
 
       _isSubmitting = false;
       notifyListeners();
