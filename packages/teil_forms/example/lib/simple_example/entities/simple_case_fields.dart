@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:example/common/common.dart';
-import 'package:example/src/entities/entities.dart';
+import 'package:example/simple_example/entities/entities.dart';
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 

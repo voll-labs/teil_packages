@@ -1,6 +1,6 @@
 import 'dart:developer' as dev;
 
-import 'package:example/src/entities/entities.dart';
+import 'package:example/simple_example/entities/entities.dart';
 import 'package:faker/faker.dart' show faker;
 import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
@@ -34,15 +34,7 @@ class SimpleFormController extends TeilFormController<SimpleFormField> {
   @protected
   Future<void> didSubmit() async {
     dev.log('Submit: [${fields.values}]');
-
-    if (!isDirty) {
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   const SnackBar(content: Text('Form did not change')),
-      // );
-      return;
-    }
-
-    // ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Form submitted')));
+    if (!isDirty) throw Exception('Form is not dirty');
   }
 }
 

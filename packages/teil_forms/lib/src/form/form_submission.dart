@@ -21,9 +21,9 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
     return form.isValid;
   }
 
-  /// Submit the [FormController] and return `true` if the form is valid.
-  Future<void> submit() async {
-    if (isSubmitting) return;
+  /// Submit the [FormController] and return `true` if the form is submitted successfully.
+  Future<bool> submit() async {
+    if (isSubmitting) return false;
     _isSubmitting = true;
     notifyListeners();
 
@@ -33,6 +33,8 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
 
       _isSubmitting = false;
       notifyListeners();
+
+      return isValid;
     });
   }
 

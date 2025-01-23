@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:example/common/common.dart';
-import 'package:example/src/entities/entities.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'query_params_example_model.g.dart';
