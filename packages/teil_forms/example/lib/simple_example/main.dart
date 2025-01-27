@@ -14,8 +14,11 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: 'simple_case',
-      builder: (context, state) => const Placeholder(),
+      builder: (context, state) => const _SimpleCaseExample(),
+    ),
+    GoRoute(
+      path: '/async',
+      builder: (context, state) => const _SimpleAsyncCaseExample(),
     ),
   ],
 );

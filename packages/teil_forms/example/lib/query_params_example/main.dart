@@ -15,7 +15,6 @@ final _router = GoRouter(
   routes: [
     GoRoute(
       path: '/',
-      name: 'query_params_example',
       builder: (context, state) => const _QueryParamsCaseExample(),
     ),
   ],
