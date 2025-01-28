@@ -6,6 +6,7 @@ late FakerService? _instance;
 class FakerService {
   FakerService();
 
+  // Ignored for example purposes
   // ignore: prefer_constructors_over_static_methods
   static FakerService get instance {
     _instance ??= FakerService();

@@ -58,6 +58,7 @@ class _FormPage extends StatelessWidget {
     dev.log('New Uri: $newRoute');
 
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Url updated')));
+    // Ignored for example purposes
     // ignore: inference_failure_on_function_invocation
     GoRouter.of(context).replace(newRoute.toString());
   }

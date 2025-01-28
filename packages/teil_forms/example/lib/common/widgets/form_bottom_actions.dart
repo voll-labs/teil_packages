@@ -13,7 +13,7 @@ class FormBottomActions extends StatelessWidget {
       if (!context.mounted) return;
 
       if (submitted) onSubmit?.call();
-    } catch (e) {
+    } on Exception catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
     }
   }

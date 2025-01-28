@@ -15,11 +15,13 @@ class CardFormDetail extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             ListenableBuilder(
+              // Ignored for example purposes
               // ignore: invalid_use_of_protected_member
               listenable: Listenable.merge(form.fields.values),
               builder: (context, _) {
                 return Text(
                   key: const Key('form_values'),
+                  // Ignored for example purposes
                   // ignore: invalid_use_of_protected_member
                   'Values: [${form.fields.values.map((f) => f.value).join(', ')}]',
                 );
