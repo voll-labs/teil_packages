@@ -9,13 +9,13 @@ part 'query_params_example_model.g.dart';
 class QueryParamsExampleModel {
   final String? email;
 
-  final KeyValueModel company;
+  final KeyValueModel? company;
 
   final bool agreeTerms;
 
   QueryParamsExampleModel({
     this.email,
-    this.company = const KeyValueModel(),
+    this.company,
     this.agreeTerms = false,
   });
 

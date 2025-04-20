@@ -1,7 +1,7 @@
 import 'package:example/common/common.dart';
 import 'package:faker/faker.dart';
 
-late FakerService? _instance;
+FakerService? _instance;
 
 class FakerService {
   FakerService();

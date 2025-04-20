@@ -6,22 +6,16 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:teil_forms/teil_forms.dart';
 
-void main(List<String> args) {
-  runApp(MaterialApp.router(routerConfig: _router));
-}
-
-final _router = GoRouter(
-  routes: [
-    GoRoute(
-      path: '/',
-      builder: (context, state) => const _SimpleCaseExample(),
-    ),
-    GoRoute(
-      path: '/async',
-      builder: (context, state) => const _SimpleAsyncCaseExample(),
-    ),
-  ],
-);
+final routes = [
+  GoRoute(
+    path: '/main',
+    builder: (context, state) => const _SimpleCaseExample(),
+  ),
+  GoRoute(
+    path: '/main-async',
+    builder: (context, state) => const _SimpleAsyncCaseExample(),
+  ),
+];
 
 class _SimpleCaseExample extends StatefulWidget {
   const _SimpleCaseExample();
@@ -51,7 +45,10 @@ class _SimpleCaseExampleState extends State<_SimpleCaseExample> {
   Widget build(BuildContext context) {
     return FormBuilder(
       controller: _controller,
-      builder: (context, controller) => _FormPage(controller: controller),
+      builder: (context, controller) => _FormPage(
+        title: 'Simple Case Example',
+        controller: controller,
+      ),
     );
   }
 }
@@ -82,38 +79,43 @@ class _SimpleAsyncCaseExampleState extends State<_SimpleAsyncCaseExample> {
 
   @override
   Widget build(BuildContext context) {
+    const title = 'Simple Async Example';
     return FormBuilder.async(
       key: _controllerKey,
       controller: _fetchController,
-      loadingBuilder: (context) => const Scaffold(body: Center(child: CircularProgressIndicator())),
-      builder: (context, controller) => _FormPage(controller: controller),
+      loadingBuilder: (context) => Scaffold(
+        appBar: AppBar(title: const Text(title)),
+        body: const Center(child: CircularProgressIndicator()),
+      ),
+      builder: (context, controller) => _FormPage(title: title, controller: controller),
     );
   }
 }
 
 class _FormPage extends StatelessWidget {
+  final String title;
+
   final SimpleFormController controller;
 
-  const _FormPage({required this.controller});
+  const _FormPage({required this.title, required this.controller});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(title: Text(title)),
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(12),
           child: Column(
+            spacing: 24,
             children: [
-              TextFieldExample(field: controller.name, label: 'Email'),
-              const SizedBox(height: 24),
+              TextFieldExample(field: controller.name, label: 'Name'),
               TextFieldExample(field: controller.email, label: 'Email'),
-              const SizedBox(height: 24),
               SearchFieldExample(
                 field: controller.company,
                 label: 'Company',
                 suggestionsFetcher: (controller, field) => FakerService.instance.fetchCompanies(),
               ),
-              const SizedBox(height: 24),
               FieldConsumer(
                 field: controller.company,
                 builder: (context, company) {
@@ -126,22 +128,18 @@ class _FormPage extends StatelessWidget {
                   );
                 },
               ),
-              const SizedBox(height: 24),
               RadioFieldExample(
                 field: controller.radioExample,
                 values: RadioExampleValue.values,
               ),
-              const SizedBox(height: 24),
               SwitchFieldExample(
                 field: controller.activeProfile,
                 label: 'Active profile',
               ),
-              const SizedBox(height: 24),
               CheckboxFieldExample(
                 field: controller.agreeTerms,
                 label: 'Agree to terms',
               ),
-              const SizedBox(height: 24),
               const CardFormDetail(),
             ],
           ),

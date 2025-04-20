@@ -9,7 +9,7 @@ typedef SuggestionFetcher<T extends KeyValue> = FutureOr<Iterable<T>> Function(
   TeilFormField<T?> field,
 );
 
-class SearchFieldExample<T extends KeyValue> extends StatelessWidget {
+class SearchFieldExample<T extends KeyValue> extends StatefulWidget {
   final TeilFormField<T?> field;
 
   final String label;
@@ -30,17 +30,42 @@ class SearchFieldExample<T extends KeyValue> extends StatelessWidget {
   });
 
   @override
+  State<SearchFieldExample<T>> createState() => _SearchFieldExampleState<T>();
+}
+
+class _SearchFieldExampleState<T extends KeyValue> extends State<SearchFieldExample<T>> {
+  TextEditingController? _textController;
+
+  @override
+  void initState() {
+    super.initState();
+    _textController = TextEditingController(text: widget.field.value?.value);
+    widget.field.addListener(_valueListener);
+  }
+
+  void _valueListener() {
+    _textController!.text = widget.field.value?.value ?? '';
+  }
+
+  @override
+  void dispose() {
+    widget.field.removeListener(_valueListener);
+    _textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return FieldBuilder(
-      field: field,
+      field: widget.field,
       builder: (context, field) {
         return IgnorePointer(
-          ignoring: !enabled,
+          ignoring: !widget.enabled,
           child: SearchAnchor(
             key: Key(field.key),
             viewHintText: field.value?.value,
             suggestionsBuilder: (context, controller) async {
-              final suggestions = await suggestionsFetcher(controller, field);
+              final suggestions = await widget.suggestionsFetcher(controller, field);
 
               return suggestions.map(
                 (suggestion) => ListTile(
@@ -55,19 +80,19 @@ class SearchFieldExample<T extends KeyValue> extends StatelessWidget {
             },
             builder: (context, controller) {
               Widget? suffix;
-              if (clearable && field.value != null) {
+              if (widget.clearable && field.value != null) {
                 suffix = IconButton(onPressed: field.clear, icon: const Icon(Icons.clear_sharp));
               }
 
               return TextField(
                 readOnly: true,
-                enabled: enabled,
+                enabled: widget.enabled,
                 focusNode: field.focusNode,
-                onTap: enabled ? () => controller.openView() : null,
-                controller: TextEditingController(text: field.value?.value),
+                onTap: widget.enabled ? () => controller.openView() : null,
+                controller: _textController,
                 decoration: InputDecoration(
                   suffix: suffix,
-                  labelText: label,
+                  labelText: widget.label,
                   errorText: field.errorText,
                 ),
               );
