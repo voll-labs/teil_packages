@@ -1,1 +1,14 @@
-include: ./packages/teil_lints/analysis_options.yaml
+# very_good_analysis lints https://pub.dev/packages/very_good_analysis
+include: package:very_good_analysis/analysis_options.yaml
+
+analyzer:
+  exclude:
+    - "**/*.g.dart"
+    - "**/*.mocks.dart"
+
+linter:
+  rules:
+    one_member_abstracts: false
+    sort_constructors_first: false
+    avoid_setters_without_getters: false
+    lines_longer_than_80_chars: false
