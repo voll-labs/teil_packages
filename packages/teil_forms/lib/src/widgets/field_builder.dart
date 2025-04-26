@@ -3,68 +3,61 @@ import 'package:flutter/widgets.dart';
 import 'package:teil_forms/src/form/form.dart';
 import 'package:teil_forms/src/widgets/widgets.dart';
 
-/// A builder for a field widget.
-typedef FieldWidgetBuilder<F> = Widget Function(BuildContext context, F field);
-
-/// A field builder.
+/// {@template field_builder_widget}
+/// Widget for building a `field`.
+///
+/// It registers the `field` on the nearest [FormBuilder] ancestor.
+///
+/// {@endtemplate}
 class FieldBuilder<F extends BaseFormField> extends StatefulWidget {
-  /// The field to build.
+  /// The [BaseFormField] instance to build.
   final F field;
 
-  /// The field widget builder.
+  /// {@macro field_consumer_builder}
+  ///
+  /// Should be used to build the [Widget] of the `field`.
   final FieldWidgetBuilder<F> builder;
 
-  /// Create a field builder.
+  /// {@macro field_builder_widget}
   const FieldBuilder({required this.field, required this.builder, super.key});
-
-  /// Try get the [BaseFormField] of the nearest [FieldBuilder] ancestor.
-  static F? maybeOf<F extends BaseFormField>(BuildContext context) {
-    final scope = context.dependOnInheritedWidgetOfExactType<_FieldScope<F>>();
-    assert(scope?.notifier != null, 'No Field(${F.runtimeType}) found in context.');
-    return scope!.notifier;
-  }
 
   /// Get the [BaseFormField] of the nearest [FieldBuilder] ancestor.
   static F of<F extends BaseFormField>(BuildContext context) {
-    final controller = FieldBuilder.maybeOf<F>(context);
-    return controller!;
+    final scope = context.dependOnInheritedWidgetOfExactType<_FieldScope<F>>();
+    assert(scope?.notifier != null, 'No Field(${F.runtimeType}) found in context.');
+    return scope!.notifier!;
   }
 
   @override
   State<FieldBuilder<F>> createState() => _FieldBuilderState<F>();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    field.debugFillProperties(properties);
+  }
 }
 
 class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
     with AutomaticKeepAliveClientMixin {
-  late F _formField;
+  F get _formField => widget.field;
 
-  bool _registered = false;
   late FormController _formController;
 
   @override
-  bool get wantKeepAlive => _registered;
-
-  @override
-  void initState() {
-    _formField = widget.field;
-    super.initState();
-  }
+  bool get wantKeepAlive => _formField.bound;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     _formController = FormBuilder.of(context);
-    if (!_registered) {
-      _formController.register(_formField);
-      _registered = true;
-    }
+    _formController.register(_formField);
   }
 
   @override
   void dispose() {
-    if (_registered) _formController.unregister(_formField);
-    _formField.dispose();
+    _formController.unregister(_formField);
     super.dispose();
   }
 
@@ -74,19 +67,8 @@ class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
 
     return _FieldScope<F>(
       notifier: _formField,
-      child: ValueListenableBuilder(
-        valueListenable: _formField,
-        builder: (context, _, __) => widget.builder(context, _formField),
-      ),
+      child: FieldConsumer(field: _formField, builder: widget.builder),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('field', _formField))
-      ..add(DiagnosticsProperty('field_registered', _registered));
   }
 }
 

@@ -19,18 +19,18 @@ abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnost
 
   FormController? _context;
 
-  /// Whether the field is bound to a [FormController].
+  /// The [FormController] this field is bound to.
   @protected
-  bool get bound => _context != null;
-
-  /// The [FormController] this field is registered to.
-  @protected
+  @mustCallSuper
   FormController get context {
     assert(_context != null, 'Field $key is not registered to a form context.');
     return _context!;
   }
 
-  /// Bind the field to a [FormController].
+  /// Whether the field is bound to a [FormController].
+  bool get bound => _context != null;
+
+  /// Bind the field [context] to the [FormController].
   @protected
   @mustCallSuper
   void bind(FormController value) {
@@ -38,21 +38,20 @@ abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnost
     _context = value;
   }
 
-  /// Unbind the field from the current [FormController].
+  /// Unbind the field [context] from the [FormController].
   @protected
   @mustCallSuper
   void unbind() => _context = null;
 
   /// Cast the [BaseFormField] to a specific type.
-  @protected
   F call<F extends BaseFormField>() {
-    assert(this is F, 'Field is not of type $F');
-    return this as F;
+    final field = tryCast<F>();
+    assert(field != null, 'FormField of type $runtimeType cannot be cast to $F');
+    return field!;
   }
 
   /// Try to cast the [BaseFormField] to a specific type.
-  @protected
-  F? tryCast<F extends BaseFormField>() => this is F ? call<F>() : null;
+  F? tryCast<F extends BaseFormField>() => this is F ? this as F : null;
 
   @override
   @mustCallSuper

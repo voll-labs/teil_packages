@@ -2,7 +2,6 @@
     "files.eol": "\n",
     "files.insertFinalNewline": true,
     "explorer.fileNesting.enabled": true,
-    "explorer.fileNesting.expand": false,
     "explorer.fileNesting.patterns": {
         "pubspec.yaml": ".packages, pubspec.lock",
         ".gitignore": ".gitattributes, .gitmodules, .gitmessage, .mailmap, .git-blame*",
@@ -17,14 +16,5 @@
         "source.fixAll": "explicit",
         "source.organizeImports": "explicit"
     },
-    "markdown.validate.enabled": true,
-    "markdown.preview.typographer": true,
-    "markdown.preview.breaks": true,
-    "markdown.validate.fileLinks.enabled": "error",
-    "markdown.validate.fragmentLinks.enabled": "error",
-    "markdown.validate.referenceLinks.enabled": "error",
-    "markdown.validate.duplicateLinkDefinitions.enabled": "error",
-    "markdown.validate.unusedLinkDefinitions.enabled": "error",
-    "markdown.updateLinksOnFileMove.enabled": "prompt",
-    "markdown.occurrencesHighlight.enabled": true,
+    "dart.lineLength": 100,
 }

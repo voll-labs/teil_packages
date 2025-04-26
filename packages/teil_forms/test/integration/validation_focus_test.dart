@@ -31,6 +31,8 @@ void main() {
 
     expect(nameTextField.focusNode!.hasFocus, false);
     expect(emailTextField.focusNode!.hasFocus, true);
+
+    addTearDown(controller.dispose);
   });
 }
 
@@ -51,7 +53,7 @@ class _TextField extends _Field<String?> {
   _TextField(super.value);
 
   @override
-  String? onValidate() {
+  String? didValidate() {
     final value = this.value;
     if (value == null) return 'Value is required';
     if (value.length < 3) return 'Value is too short';
@@ -99,7 +101,7 @@ class _FormApp extends StatelessWidget {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.validate(context),
+                  onPressed: () => controller.validate(),
                   child: const Text('Validate'),
                 ),
               ],

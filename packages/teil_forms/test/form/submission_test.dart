@@ -26,6 +26,8 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       verify(spy.call).called(1);
+
+      addTearDown(controller.dispose);
     });
 
     test('Should build FormSubmission debugFillProperties', () async {
@@ -51,7 +53,7 @@ class _FormController<F extends _Field> extends FormController<F> with FormSubmi
 
   @override
   @protected
-  Future<void> onSubmit(BuildContext context) {
+  Future<void> didSubmit() {
     return Future.delayed(const Duration(seconds: 1), () {
       _onSubmit.call();
     });
@@ -89,7 +91,7 @@ class _FormApp extends StatelessWidget {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.submit(context),
+                  onPressed: () => controller.submit(),
                   child: const Text('Submit'),
                 ),
               ],

@@ -4,12 +4,16 @@ import 'package:teil_forms/teil_forms.dart';
 
 void main() {
   group('Form resetter', () {
-    testWidgets('Should reset all fields values', (tester) async {
-      final controller = _FormController(
+    late _FormController controller;
+
+    setUp(() {
+      controller = _FormController(
         name: _Field(''),
         email: _ControllerField('initial@test.com'),
       );
+    });
 
+    testWidgets('Should reset all fields values', (tester) async {
       await tester.pumpWidget(_FormApp(controller: controller));
       await tester.pumpAndSettle();
 
@@ -51,11 +55,6 @@ void main() {
     });
 
     testWidgets('Should clear all fields values', (tester) async {
-      final controller = _FormController(
-        name: _Field(''),
-        email: _ControllerField('initial@test.com'),
-      );
-
       await tester.pumpWidget(_FormApp(controller: controller));
       await tester.pumpAndSettle();
 
@@ -83,11 +82,6 @@ void main() {
     });
 
     testWidgets('Should reset field individually', (tester) async {
-      final controller = _FormController(
-        name: _Field(''),
-        email: _ControllerField('initial@test.com'),
-      );
-
       await tester.pumpWidget(_FormApp(controller: controller));
       await tester.pumpAndSettle();
 
@@ -102,11 +96,6 @@ void main() {
     });
 
     testWidgets('Should clear field individually', (tester) async {
-      final controller = _FormController(
-        name: _Field(''),
-        email: _ControllerField('initial@test.com'),
-      );
-
       await tester.pumpWidget(_FormApp(controller: controller));
       await tester.pumpAndSettle();
 
@@ -120,6 +109,8 @@ void main() {
       controller.clearField(controller.email.key);
       expect(controller.email.value, isNull);
     });
+
+    tearDown(() => controller.dispose());
   });
 }
 

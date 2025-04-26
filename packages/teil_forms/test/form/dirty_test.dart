@@ -29,6 +29,8 @@ void main() {
       await tester.enterText(findEmailField, 'test@test.com');
 
       expect(controller.dirtyFields, {controller.name.key, controller.email.key});
+
+      addTearDown(controller.dispose);
     });
 
     testWidgets('When fields returns to initial value, should not be dirty', (tester) async {
@@ -53,6 +55,8 @@ void main() {
 
       expect(controller.isDirty, false);
       expect(controller.name.isDirty, false);
+
+      addTearDown(controller.dispose);
     });
 
     test('Should build FormDirty debugFillProperties', () async {

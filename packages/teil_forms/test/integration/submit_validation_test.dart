@@ -29,6 +29,8 @@ void main() {
     expect(controller.isValid, false);
 
     verifyNever(spy.call);
+
+    addTearDown(controller.dispose);
   });
 
   testWidgets('Should handle submit only with valid form', (tester) async {
@@ -50,6 +52,8 @@ void main() {
     expect(controller.isValid, true);
 
     verify(spy.call).called(1);
+
+    addTearDown(controller.dispose);
   });
 }
 
@@ -67,7 +71,7 @@ class _FormController<F extends _Field> extends FormController<F>
 
   @override
   @protected
-  Future<void> onSubmit(BuildContext context) {
+  Future<void> didSubmit() {
     return Future.delayed(const Duration(seconds: 1), () {
       _onSubmit.call();
     });
@@ -79,7 +83,7 @@ class _Field<T> extends BaseFormField<T> with FormFieldValidator<T> {
   _Field(super.value);
 
   @override
-  Future<String?> onValidate() {
+  Future<String?> didValidate() {
     return Future.delayed(const Duration(seconds: 1), () {
       final value = this.value;
       if (value == null) return 'Value is required';
@@ -114,7 +118,7 @@ class _FormApp extends StatelessWidget {
                   },
                 ),
                 ElevatedButton(
-                  onPressed: () => controller.submit(context),
+                  onPressed: () => controller.submit(),
                   child: const Text('Submit'),
                 ),
               ],

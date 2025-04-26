@@ -21,24 +21,14 @@ scripts:
 
   test:
     description: Run Flutter tests in this project.
-    run: melos exec -- flutter test
+    run: melos exec -- flutter test --dart-define LEAK_TRACKING=true
     packageFilters:
       dirExists:
         - test
 
-  test:integration:
-    description: Run integration tests in this project.
-    run: |
-      melos exec -c 1 --fail-fast -- \
-        flutter test integration_test/main.dart
-    packageFilters:
-      dirExists:
-        - integration_test
-
   coverage:
     description: Generate coverage for the selected package.
     run: |
-      melos exec -- flutter test --coverage &&
-      melos exec -- genhtml coverage/lcov.info --output-directory=coverage/
+      melos exec -- flutter test --coverage
     packageFilters:
       dirExists: test

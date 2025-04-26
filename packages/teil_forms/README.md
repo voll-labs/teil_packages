@@ -19,8 +19,9 @@ For this reason, native Flutter forms can become complex and hard to maintain as
 Other solutions like [flutter_form_builder](https://pub.dev/packages/flutter_form_builder) or [flutter_form_bloc](https://pub.dev/packages/flutter_form_bloc) attempt to address these issues.
 However, they still face challenges with type safety, UI coupling, and extensibility.
 
-Expired by these libraries and web forms libraries like [react-hook-form](https://react-hook-form.com/), [formik](https://formik.org/) and [react-final-form](https://final-form.org/react).
-`Teil Forms` aims to provide a similar experience in Flutter respecting the **main principles** of these libraries.
+Inspired by these libraries and web libraries like [react-hook-form](https://react-hook-form.com/), [formik](https://formik.org/) and [react-final-form](https://final-form.org/react).
+
+`Teil Forms` aims to provide a similar experience in Flutter respecting the **main principles** of these libraries:
 
 - **Type safety**: Fully typed forms.
 - **Headless**: UI agnostic, you can build your UI with any widget.

@@ -51,7 +51,7 @@ mixin FormValidator<F extends FormFieldValidator> on FormController<F> {
   }
 
   /// Validate the [FormController] and return `true` if the form is valid.
-  Future<bool> validate(BuildContext context) async {
+  Future<bool> validate() async {
     _isValidating = true;
     notifyListeners();
 
@@ -121,14 +121,14 @@ mixin FormFieldValidator<T> on BaseFormField<T> {
 
   /// Validate the field and return an error message if the field is invalid.
   @protected
-  FutureOr<String?> onValidate() => null;
+  FutureOr<String?> didValidate() => null;
 
   FutureOr<void> _validate() async {
     _isValidating = true;
     notifyListeners();
 
     return startTransition(() async {
-      final error = await onValidate();
+      final error = await didValidate();
       _setError(error);
 
       _isValidating = false;

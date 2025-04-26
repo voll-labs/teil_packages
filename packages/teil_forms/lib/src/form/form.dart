@@ -4,7 +4,8 @@ import 'dart:collection';
 import 'package:collection/collection.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
-import 'package:teil_forms/src/entities/entities.dart';
+import 'package:teil_forms/src/utils/utils.dart';
+import 'package:teil_forms/teil_forms.dart';
 
 part 'form_controller.dart';
 part 'form_dirty.dart';
