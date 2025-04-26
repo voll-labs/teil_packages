@@ -11,14 +11,14 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
 
   /// Handle the form submission.
   @protected
-  Future<void> didSubmit() async {}
+  Future<void> didSubmit() async {
+    assert(false, 'Form submission not implemented. Override didSubmit() in your FormController.');
+  }
 
   Future<bool> _validate() async {
     final form = tryCast<FormValidator>();
     if (form == null) return true;
-
-    await form.validate();
-    return form.isValid;
+    return form.validate();
   }
 
   /// Submit the [FormController] and return `true` if the form is submitted successfully.
@@ -27,15 +27,19 @@ mixin FormSubmission<F extends BaseFormField> on FormController<F> {
     _isSubmitting = true;
     notifyListeners();
 
-    final isValid = await _validate();
-    return startTransition(() async {
+    try {
+      final isValid = await _validate();
       if (isValid) await didSubmit();
 
       _isSubmitting = false;
       notifyListeners();
 
       return isValid;
-    });
+    } catch (e) {
+      _isSubmitting = false;
+      notifyListeners();
+      rethrow;
+    }
   }
 
   @override

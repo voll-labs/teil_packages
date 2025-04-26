@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:teil_forms/teil_forms.dart';
 
 class SimpleFormController extends TeilFormController<SimpleFormField> {
+  final IdField id;
+
   final NameField name;
 
   final EmailField email;
@@ -21,6 +23,7 @@ class SimpleFormController extends TeilFormController<SimpleFormField> {
   final AgreeTermsField agreeTerms;
 
   SimpleFormController({
+    required this.id,
     required this.name,
     required this.email,
     required this.company,
@@ -40,6 +43,7 @@ class SimpleFormController extends TeilFormController<SimpleFormField> {
 
 class SimpleAsyncFormController extends SimpleFormController {
   SimpleAsyncFormController({
+    required super.id,
     required super.name,
     required super.email,
     required super.company,
@@ -52,6 +56,7 @@ class SimpleAsyncFormController extends SimpleFormController {
   static Future<SimpleAsyncFormController> initialize() async {
     return Future.delayed(const Duration(seconds: 3), () {
       return SimpleAsyncFormController(
+        id: IdField(faker.guid.guid()),
         name: NameField(faker.person.name()),
         email: EmailField(faker.internet.email()),
         company: CompanyField(null),

@@ -28,7 +28,6 @@ abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnost
   }
 
   /// Whether the field is bound to a [FormController].
-  @protected
   bool get bound => _context != null;
 
   /// Bind the field [context] to the [FormController].
@@ -45,15 +44,13 @@ abstract class BaseFormField<T> extends ValueTransitionNotifier<T> with Diagnost
   void unbind() => _context = null;
 
   /// Cast the [BaseFormField] to a specific type.
-  @protected
   F call<F extends BaseFormField>() {
     final field = tryCast<F>();
-    assert(field == null, 'Field is not of type $F');
+    assert(field != null, 'FormField of type $runtimeType cannot be cast to $F');
     return field!;
   }
 
   /// Try to cast the [BaseFormField] to a specific type.
-  @protected
   F? tryCast<F extends BaseFormField>() => this is F ? this as F : null;
 
   @override

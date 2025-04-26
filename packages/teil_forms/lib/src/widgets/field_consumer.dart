@@ -1,4 +1,5 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
 import 'package:teil_forms/teil_forms.dart';
 
 /// Signature for the `field listener` function.
@@ -56,6 +57,12 @@ class FieldConsumer<F extends BaseFormField> extends StatefulWidget {
 
   @override
   State<FieldConsumer<F>> createState() => _FieldConsumerState<F>();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    field.debugFillProperties(properties);
+  }
 }
 
 class _FieldConsumerState<F extends BaseFormField> extends State<FieldConsumer<F>> {
@@ -69,7 +76,6 @@ class _FieldConsumerState<F extends BaseFormField> extends State<FieldConsumer<F
 
   void _fieldListener() {
     widget.listener!(_formField);
-
     if (!mounted || widget.builder == null) return;
     setState(() {});
   }

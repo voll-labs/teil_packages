@@ -1,9 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:teil_forms/src/form/form.dart';
 
 /// Provides [TextEditingController] for a [BaseFormField] of type [String].
 ///
-/// - Can be used with [TextField] or relatives that use [TextEditingController] to control the text.
+/// - Can be used on widgets that use [TextEditingController] to control the text.
 mixin ControlledTextField on BaseFormField<String?> {
   TextEditingController? _controller;
 

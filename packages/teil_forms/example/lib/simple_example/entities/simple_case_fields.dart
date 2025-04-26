@@ -10,6 +10,11 @@ sealed class SimpleFormField<T> extends TeilFormField<T> {
   SimpleFormField(super.value);
 }
 
+/// Example of a virtual field
+final class IdField extends SimpleFormField<String?> {
+  IdField(super.value);
+}
+
 final class NameField extends SimpleFormField<String?> with ControlledTextField {
   NameField(super.value);
 

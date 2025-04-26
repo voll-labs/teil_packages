@@ -26,6 +26,7 @@ abstract class FormController<F extends BaseFormField> extends TransitionNotifie
   ///
   /// See also: [BaseFormField.context], [unregister]
   void register(F field) {
+    if (field.bound) return;
     assert(!_fields.containsKey(field.key), 'Field with key ${field.key} already registered.');
     _fields.putIfAbsent(field.key, () => field..bind(this));
   }
@@ -47,7 +48,7 @@ abstract class FormController<F extends BaseFormField> extends TransitionNotifie
   @protected
   C call<C extends FormController>() {
     final form = tryCast<C>();
-    assert(form == null, 'FormController of type $runtimeType cannot be cast to $C');
+    assert(form != null, 'FormController of type $runtimeType cannot be cast to $C');
     return form!;
   }
 

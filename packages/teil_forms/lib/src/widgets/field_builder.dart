@@ -30,32 +30,34 @@ class FieldBuilder<F extends BaseFormField> extends StatefulWidget {
 
   @override
   State<FieldBuilder<F>> createState() => _FieldBuilderState<F>();
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    field.debugFillProperties(properties);
+  }
 }
 
 class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
     with AutomaticKeepAliveClientMixin {
   F get _formField => widget.field;
 
-  bool _registered = false;
   late FormController _formController;
 
   @override
-  bool get wantKeepAlive => _registered;
+  bool get wantKeepAlive => _formField.bound;
 
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
 
     _formController = FormBuilder.of(context);
-    if (!_registered) {
-      _formController.register(_formField);
-      _registered = true;
-    }
+    _formController.register(_formField);
   }
 
   @override
   void dispose() {
-    if (_registered) _formController.unregister(_formField);
+    _formController.unregister(_formField);
     super.dispose();
   }
 
@@ -67,14 +69,6 @@ class _FieldBuilderState<F extends BaseFormField> extends State<FieldBuilder<F>>
       notifier: _formField,
       child: FieldConsumer(field: _formField, builder: widget.builder),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty('field', _formField))
-      ..add(DiagnosticsProperty('field_registered', _registered));
   }
 }
 

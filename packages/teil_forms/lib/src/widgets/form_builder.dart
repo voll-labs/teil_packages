@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:teil_forms/teil_forms.dart';
 
 /// Signature for the [GlobalKey] of a [FormBuilder].

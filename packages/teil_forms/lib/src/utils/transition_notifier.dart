@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 /// Callback for a transition.
 ///
@@ -8,13 +9,15 @@ import 'package:flutter/foundation.dart';
 typedef TransitionCallback<T> = FutureOr<T> Function();
 
 /// [ChangeNotifier] that allows [Transition] to be started.
-class TransitionNotifier extends ChangeNotifier with Transition {
+@internal
+abstract class TransitionNotifier extends ChangeNotifier with Transition {
   /// Creates a [TransitionNotifier].
   TransitionNotifier();
 }
 
 /// [ValueNotifier] that allows [Transition] to be started.
-class ValueTransitionNotifier<T> extends ValueNotifier<T> with Transition {
+@internal
+abstract class ValueTransitionNotifier<T> extends ValueNotifier<T> with Transition {
   /// Creates a [ValueTransitionNotifier].
   ValueTransitionNotifier(super.value);
 }
@@ -23,6 +26,7 @@ class ValueTransitionNotifier<T> extends ValueNotifier<T> with Transition {
 ///
 /// When a transition is started, the [ChangeNotifier] will not notify listeners
 /// until the transition is complete.
+@internal
 mixin Transition on ChangeNotifier {
   int _transitions = 0;
 

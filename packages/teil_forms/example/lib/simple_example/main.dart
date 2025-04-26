@@ -30,6 +30,7 @@ class _SimpleCaseExampleState extends State<_SimpleCaseExample> {
   @override
   void initState() {
     _controller = SimpleFormController(
+      id: IdField(null),
       name: NameField(''),
       email: EmailField(null),
       company: CompanyField(null),
@@ -66,6 +67,7 @@ class _SimpleAsyncCaseExampleState extends State<_SimpleAsyncCaseExample> {
   Future<SimpleAsyncFormController> _fetchController() async {
     return Future.delayed(const Duration(seconds: 3), () {
       return SimpleAsyncFormController(
+        id: IdField(faker.guid.guid()),
         name: NameField(faker.person.name()),
         email: EmailField(faker.internet.email()),
         company: CompanyField(null),
