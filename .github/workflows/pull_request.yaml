@@ -1,9 +1,6 @@
-name: Branch Checkup
+name: Pull Request
 
 on:
-  push:
-    branches:
-      - main
   pull_request_target:
     types:
       - opened
@@ -16,6 +13,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
+        with:
+          cache: true
       - uses: bluefireteam/melos-action@v3
       - name: Run tests
         run: melos run analyze

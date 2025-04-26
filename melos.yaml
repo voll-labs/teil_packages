@@ -26,15 +26,6 @@ scripts:
       dirExists:
         - test
 
-  test:integration:
-    description: Run integration tests in this project.
-    run: |
-      melos exec -c 1 --fail-fast -- \
-        flutter test integration_test/main.dart
-    packageFilters:
-      dirExists:
-        - integration_test
-
   coverage:
     description: Generate coverage for the selected package.
     run: |
