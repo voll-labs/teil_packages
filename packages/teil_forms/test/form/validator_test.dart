@@ -119,6 +119,8 @@ void main() {
 
         expect(find.text('Name is required'), findsOneWidget);
       });
+
+      tearDown(() => controller.dispose());
     });
 
     group('When validation mode [onChanged]', () {
@@ -172,6 +174,8 @@ void main() {
 
         expect(controller.name.errorText, 'Value is too short');
       });
+
+      tearDown(() => controller.dispose());
     });
 
     test('Should build FormValidator debugFillProperties', () async {

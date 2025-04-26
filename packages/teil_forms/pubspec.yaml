@@ -3,12 +3,11 @@ description: "A library for building forms with Flutter."
 version: 0.0.2
 
 environment:
-  sdk: '>=3.2.6 <4.0.0'
+  sdk: ">=3.2.6 <4.0.0"
   flutter: ">=1.17.0"
 
 dependencies:
   collection: ^1.18.0
-  equatable: ^2.0.5
   flutter:
     sdk: flutter
   meta: ^1.10.0
@@ -16,5 +15,6 @@ dependencies:
 dev_dependencies:
   flutter_test:
     sdk: flutter
+  leak_tracker_flutter_testing: ^3.0.9
   mocktail: ^1.0.4
-  very_good_analysis: ^6.0.0
+  very_good_analysis: ^7.0.0

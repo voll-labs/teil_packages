@@ -40,6 +40,8 @@ void main() {
       );
 
       expect(emailField.focusNode!.hasFocus, true);
+
+      addTearDown(controller.dispose);
     });
 
     test('Should build FormFieldFocusable debugFillProperties', () async {

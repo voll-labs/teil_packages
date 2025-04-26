@@ -31,6 +31,8 @@ void main() {
 
     expect(nameTextField.focusNode!.hasFocus, false);
     expect(emailTextField.focusNode!.hasFocus, true);
+
+    addTearDown(controller.dispose);
   });
 }
 

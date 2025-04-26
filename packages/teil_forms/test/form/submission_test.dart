@@ -26,6 +26,8 @@ void main() {
       await tester.pumpAndSettle(const Duration(seconds: 1));
 
       verify(spy.call).called(1);
+
+      addTearDown(controller.dispose);
     });
 
     test('Should build FormSubmission debugFillProperties', () async {

@@ -29,6 +29,8 @@ void main() {
     expect(controller.isValid, false);
 
     verifyNever(spy.call);
+
+    addTearDown(controller.dispose);
   });
 
   testWidgets('Should handle submit only with valid form', (tester) async {
@@ -50,6 +52,8 @@ void main() {
     expect(controller.isValid, true);
 
     verify(spy.call).called(1);
+
+    addTearDown(controller.dispose);
   });
 }
 
